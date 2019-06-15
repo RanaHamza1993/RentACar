@@ -30,7 +30,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/crammargin20"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/cramlogo" />
+                    app:srcCompat="@drawable/car_logo" />
         </RelativeLayout>
 
         <LinearLayout
@@ -85,17 +85,16 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/crammargin10"
                                     android:padding="@dimen/crampadding5"
-                                    android:hint="@string/username"
+                                    android:hint="Email*"
                                     app:hintTextAppearance="@style/InputTextLayout">
 
                                 <androidx.appcompat.widget.AppCompatEditText
-                                        android:id="@+id/l_mail"
+                                        android:id="@+id/l_email"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="0dp"
                                         android:layout_marginRight="0dp"
-                                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-."
-                                        android:inputType="text"
+                                        android:inputType="textEmailAddress"
                                         android:singleLine="true"
                                         android:textAppearance="@style/CustomTextAppearance" />
                             </com.google.android.material.textfield.TextInputLayout>
@@ -199,7 +198,6 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:fontFamily="@font/opensans_bold"
-                                            android:onClick="Login"
                                             android:text="Signup Now"
                                             android:textColor="@color/blue"
                                             android:textSize="@dimen/app_mini_text"
@@ -210,34 +208,7 @@
                                             app:layout_constraintTop_toTopOf="@+id/no_account_yet"
                                             tools:ignore="OnClick" />
                                     <!--/forgot password-->
-
-
-                                    <TextView
-                                            android:id="@+id/terms_of_use"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="8dp"
-                                            android:fontFamily="@font/opensans_regular"
-                                            android:text="Terms of Use "
-                                            android:textColor="@color/blue"
-                                            android:textSize="@dimen/app_mini_text"
-                                            app:layout_constraintEnd_toEndOf="@+id/no_account_yet"
-                                            app:layout_constraintHorizontal_bias="0.0"
-                                            app:layout_constraintStart_toStartOf="@+id/no_account_yet"
-                                            app:layout_constraintTop_toBottomOf="@+id/no_account_yet" />
-
-                                    <TextView
-                                            android:id="@+id/privacypolicy"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:fontFamily="@font/opensans_regular"
-                                            android:text="Privacy Policy"
-                                            android:textColor="@color/blue"
-                                            android:textSize="@dimen/app_mini_text"
-                                            app:layout_constraintLeft_toRightOf="@+id/terms_of_use"
-                                            app:layout_constraintStart_toStartOf="@+id/b_register"
-                                            app:layout_constraintTop_toTopOf="@+id/terms_of_use" />
-                                    <!---->
+                                  <!---->
                                 </androidx.constraintlayout.widget.ConstraintLayout>
                             </LinearLayout>
                         </LinearLayout>
@@ -276,19 +247,19 @@
 
                 </RelativeLayout>
             </FrameLayout>
-            <com.facebook.login.widget.LoginButton
-                    android:id="@+id/fb_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    android:drawablePadding="10dp"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="10dp"
-                    android:textSize="@dimen/app_normal_text"
-                    android:visibility="gone" />
+            <!--<com.facebook.login.widget.LoginButton-->
+                    <!--android:id="@+id/fb_login"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="0dp"-->
+                    <!--android:layout_marginRight="0dp"-->
+                    <!--android:drawablePadding="10dp"-->
+                    <!--android:paddingLeft="20dp"-->
+                    <!--android:paddingTop="10dp"-->
+                    <!--android:paddingRight="20dp"-->
+                    <!--android:paddingBottom="10dp"-->
+                    <!--android:textSize="@dimen/app_normal_text"-->
+                    <!--android:visibility="gone" />-->
 
         </LinearLayout>
     </LinearLayout>

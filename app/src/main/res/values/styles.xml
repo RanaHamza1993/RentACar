@@ -8,12 +8,12 @@
         <item name="colorAccent">@color/red</item>
     </style>
 
-    <style name="CustTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <!--<style name="CustTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
 
-        <item name="boxStrokeWidth">1px</item>
-        <item name="boxStrokeColor">@color/textinput_state</item>
+        <!--<item name="boxStrokeWidth">1px</item>-->
+        <!--<item name="boxStrokeColor">@color/textinput_state</item>-->
 
-    </style>
+    <!--</style>-->
 
     <style name="custom_bottom_text">
         <!--<item name="android:textSize">14dp</item>-->

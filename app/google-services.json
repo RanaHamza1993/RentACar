@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "406249038957",
+    "firebase_url": "https://rentacar-ed1cf.firebaseio.com",
+    "project_id": "rentacar-ed1cf",
+    "storage_bucket": "rentacar-ed1cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406249038957:android:89156357983ce473",
+        "android_client_info": {
+          "package_name": "com.team.rentacar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406249038957-lr3adn97rbkisng8f6ng15m4lrbruqnu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.team.rentacar",
+            "certificate_hash": "aa4feebe03e479f907dd0b704dc8c63d3f0360f7"
+          }
+        },
+        {
+          "client_id": "406249038957-mb5k6mlvsjdp2079ctamphc7njinuebi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy8hzJvs60WB4E8UbUso1prGsoutdxRhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406249038957-mb5k6mlvsjdp2079ctamphc7njinuebi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
