@@ -33,6 +33,8 @@ public class LoginActivity extends BaseActivity {
     private AppCompatEditText password;
     private TextView login;
     private TextView signUp;
+    private TextView privacyPolicy;
+    private TextView termsOfUse;
     private DatabaseReference userReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class LoginActivity extends BaseActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
         signUp=findViewById(R.id.b_register);
+        termsOfUse=findViewById(R.id.terms_of_use);
+        privacyPolicy=findViewById(R.id.privacypolicy);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +78,18 @@ public class LoginActivity extends BaseActivity {
                 loginUser(em,pwd);
             }
         });
+        privacyPolicy.setOnClickListener(v->{
+
+                Intent intent=new Intent(LoginActivity.this,PrivacyPolicy.class);
+        startActivity(intent);
+        });
+
+        termsOfUse.setOnClickListener(v->{
+
+                Intent intent=new Intent(LoginActivity.this,TermsOfUse.class);
+        startActivity(intent);
+        });
+
     }
 
     private void loginUser(String em, String pwd) {

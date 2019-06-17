@@ -207,7 +207,33 @@
                                             app:layout_constraintStart_toEndOf="@+id/no_account_yet"
                                             app:layout_constraintTop_toTopOf="@+id/no_account_yet"
                                             tools:ignore="OnClick" />
-                                    <!--/forgot password-->
+
+                                    <TextView
+                                            android:id="@+id/terms_of_use"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="8dp"
+                                            android:fontFamily="@font/opensans_regular"
+                                            android:text="Terms of Use "
+                                            android:textColor="@color/blue"
+                                            android:textSize="@dimen/app_mini_text"
+                                            app:layout_constraintEnd_toEndOf="@+id/no_account_yet"
+                                            app:layout_constraintHorizontal_bias="0.0"
+                                            app:layout_constraintStart_toStartOf="@+id/no_account_yet"
+                                            app:layout_constraintTop_toBottomOf="@+id/no_account_yet" />
+
+                                    <TextView
+                                            android:id="@+id/privacypolicy"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/opensans_regular"
+                                            android:text="Privacy Policy"
+                                            android:textColor="@color/blue"
+                                            android:textSize="@dimen/app_mini_text"
+                                            app:layout_constraintLeft_toRightOf="@+id/terms_of_use"
+                                            app:layout_constraintStart_toStartOf="@+id/b_register"
+                                            app:layout_constraintTop_toTopOf="@+id/terms_of_use" />
+                                    <!---->
                                   <!---->
                                 </androidx.constraintlayout.widget.ConstraintLayout>
                             </LinearLayout>

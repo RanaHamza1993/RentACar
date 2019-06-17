@@ -26,6 +26,8 @@ public class RegisterActivity extends BaseActivity {
     private AppCompatEditText name;
     private AppCompatEditText email;
     private AppCompatEditText password;
+    private AppCompatEditText cnicNumber;
+    private AppCompatEditText phoneNumber;
     private TextView register;
     private FirebaseAuth mAuth;
     private ProgressDialog loadingBar;
@@ -53,6 +55,8 @@ public class RegisterActivity extends BaseActivity {
         password = findViewById(R.id.pwd);
         email = findViewById(R.id.email);
         register = findViewById(R.id.register);
+        cnicNumber = findViewById(R.id.cnic);
+        phoneNumber = findViewById(R.id.phone_no);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,23 +66,39 @@ public class RegisterActivity extends BaseActivity {
                 String nm = name.getText().toString();
                 String pwd = password.getText().toString();
                 String em = email.getText().toString();
-                RegisterAccount(nm, em, pwd);
+                String cnic = cnicNumber.getText().toString();
+                String phonno = phoneNumber.getText().toString();
+                RegisterAccount(nm, em, pwd,cnic,phonno);
             }
         });
     }
 
-    private void RegisterAccount(final String name, final String em, final String pwd) {
+    private void RegisterAccount(final String name, final String em, final String pwd,final String cnic,final String phonNo) {
 
-        if (name.isEmpty())
+        if (name.isEmpty()) {
             showErrorMessage("Please enter valid name");
+            return;
+        }
         // Toasty.error(this, "Please enter valid name", Toast.LENGTH_LONG, true).show();
 
-        if (em.isEmpty())
+        if (em.isEmpty()) {
             showErrorMessage("Please enter valid email");
+            return;
+        }
         //Toasty.error(this, "Please enter valid email", Toast.LENGTH_LONG, true).show();
 
-        if (pwd.isEmpty())
+        if (pwd.isEmpty()) {
             showErrorMessage("Please enter valid password");
+            return;
+        }
+        if (cnic.isEmpty()) {
+            showErrorMessage("Please enter valid cnic number");
+            return;
+        }
+        if (phonNo.isEmpty()) {
+            showErrorMessage("Please enter valid phone number");
+
+        }
             // Toasty.error(this, "Please enter valid password", Toast.LENGTH_LONG, true).show();
         else {
             showDialog("Creating new Account", "wait, while we are creating account for you");
@@ -93,7 +113,8 @@ public class RegisterActivity extends BaseActivity {
                         userDefaultDataReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
                         userDefaultDataReference.child("user_name").setValue(name);
                          userDefaultDataReference.child("user_email").setValue(em);
-                          userDefaultDataReference.child("user_passowrd").setValue(pwd);
+                          userDefaultDataReference.child("user_cnic").setValue(cnic);
+                          userDefaultDataReference.child("user_phone").setValue(phonNo);
                         userDefaultDataReference.child("device_token").setValue(deviceToken)
                       //  userDefaultDataReference.child("user_status").setValue("Hey i am using weChat developed by Hamza");
                        // userDefaultDataReference.child("user_image").setValue("default_profile");
@@ -104,7 +125,7 @@ public class RegisterActivity extends BaseActivity {
 
                                         if (task.isSuccessful()) {
 
-                                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(intent);
                                             finish();

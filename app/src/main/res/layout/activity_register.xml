@@ -142,22 +142,37 @@
                 <!--End Password-->
                 <!--Confirm Password-->
                 <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/input_layout_c_pass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/crammargin5"
-                        android:visibility="gone"
                         app:hintTextAppearance="@style/InputTextLayout"
                         app:passwordToggleEnabled="true">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/l_password"
+                            android:id="@+id/cnic"
                             style="@style/CustomTextAppearance"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Confirm Password*"
-                            android:inputType="textPassword"
-                            android:maxLength="32"
+                            android:hint="Cnic*"
+                            android:inputType="number"
+                            android:maxLength="13"
+                            android:singleLine="true" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/crammargin5"
+                        app:hintTextAppearance="@style/InputTextLayout"
+                        app:passwordToggleEnabled="true">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/phone_no"
+                            style="@style/CustomTextAppearance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Phone No*"
+                            android:inputType="textPhonetic"
+                            android:maxLength="11"
                             android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <!--Confirm Password-->
