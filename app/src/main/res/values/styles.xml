@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/red</item>
+
     </style>
 
     <!--<style name="CustTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
@@ -32,7 +33,10 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
-
+    <style name="TextLabel2" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColor">@color/black</item>
+    </style>
 
 
 
