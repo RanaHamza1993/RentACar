@@ -102,15 +102,19 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
         arrayList.add(new MainPageModel(1,R.drawable.googleicon, "Profile Activity"));
         arrayList.add(new MainPageModel(2,R.drawable.googleicon, "Booking Activity"));
         arrayList.add(new MainPageModel(3,R.drawable.googleicon, "Vendors"));
-        arrayList.add(new MainPageModel(4,R.drawable.googleicon, "Fast"));
+        arrayList.add(new MainPageModel(4,R.drawable.googleicon, "Change Password"));
     }
 
     @Override
     public void navigateToOtherActivities(int id) {
-        if(id==0){
+        if(id==1){
             new StartNewActivity<ProfileActivity>(MainActivity.this,ProfileActivity.class);
-        }else if(id==1){
+        }else if(id==2){
             new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class);
+        }else if(id==3){
+           // new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class);
+        }else if(id==4){
+            new StartNewActivity<ChangePassword>(MainActivity.this,ChangePassword.class);
         }
     }
 }
