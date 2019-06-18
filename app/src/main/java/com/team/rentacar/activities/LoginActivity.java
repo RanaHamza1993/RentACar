@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.team.rentacar.R;
 import com.team.rentacar.baseclasses.BaseActivity;
+import com.team.rentacar.utilities.StartNewActivity;
 
 public class LoginActivity extends BaseActivity {
 
@@ -35,6 +36,7 @@ public class LoginActivity extends BaseActivity {
     private TextView signUp;
     private TextView privacyPolicy;
     private TextView termsOfUse;
+    private TextView forgotPassword;
     private DatabaseReference userReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class LoginActivity extends BaseActivity {
         signUp=findViewById(R.id.b_register);
         termsOfUse=findViewById(R.id.terms_of_use);
         privacyPolicy=findViewById(R.id.privacypolicy);
+        forgotPassword=findViewById(R.id.forgot_password);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,15 +82,14 @@ public class LoginActivity extends BaseActivity {
             }
         });
         privacyPolicy.setOnClickListener(v->{
-
-                Intent intent=new Intent(LoginActivity.this,PrivacyPolicy.class);
-        startActivity(intent);
+            new StartNewActivity<PrivacyPolicy>(LoginActivity.this,PrivacyPolicy.class);
         });
 
         termsOfUse.setOnClickListener(v->{
-
-                Intent intent=new Intent(LoginActivity.this,TermsOfUse.class);
-        startActivity(intent);
+            new StartNewActivity<TermsOfUse>(LoginActivity.this,TermsOfUse.class);
+        });
+        forgotPassword.setOnClickListener(v->{
+            new StartNewActivity<ForgotPassword>(LoginActivity.this,ForgotPassword.class);
         });
 
     }
