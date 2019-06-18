@@ -9,20 +9,34 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ServerValue;
 import com.team.rentacar.R;
+import com.team.rentacar.adapters.MainPageAdapter;
 import com.team.rentacar.baseclasses.BaseActivity;
+import com.team.rentacar.contracts.Communicator;
+import com.team.rentacar.models.MainPageModel;
+import com.team.rentacar.utilities.StartNewActivity;
 
-public class MainActivity extends BaseActivity {
+import java.util.ArrayList;
 
+public class MainActivity extends BaseActivity implements Communicator.homeNavigator {
+
+    private  LinearLayoutManager layoutManager;
     private FirebaseAuth mAuth;
     TextView signOut;
     FirebaseUser currentUser;
+    RecyclerView homeRecycler;
     private DatabaseReference databaseReference;
     Toolbar toolbar;
+    ArrayList<MainPageModel> arrayList = new ArrayList<>();
+    private MainPageAdapter mainPageAdapter;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -36,8 +50,10 @@ public class MainActivity extends BaseActivity {
         toolbar = findViewById(R.id.home_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Car Glide");
-        signOut=findViewById(R.id.signout);
+        //signOut=findViewById(R.id.signout);
         mAuth = FirebaseAuth.getInstance();
+        homeRecycler=findViewById(R.id.home_recycler);
+        setAdapter();
 
     }
     private void logout() {
@@ -72,4 +88,29 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setAdapter(){
+
+        populateArray();
+
+        mainPageAdapter = new MainPageAdapter(MainActivity.this, arrayList);
+        layoutManager = new GridLayoutManager(MainActivity.this,2);
+        mainPageAdapter.setCommunicatorNavigator(this);
+        homeRecycler.setLayoutManager(layoutManager);
+        homeRecycler.setAdapter(mainPageAdapter);
+    }
+    private void populateArray() {
+        arrayList.add(new MainPageModel(1,R.drawable.googleicon, "Profile Activity"));
+        arrayList.add(new MainPageModel(2,R.drawable.googleicon, "Booking Activity"));
+        arrayList.add(new MainPageModel(3,R.drawable.googleicon, "Vendors"));
+        arrayList.add(new MainPageModel(4,R.drawable.googleicon, "Fast"));
+    }
+
+    @Override
+    public void navigateToOtherActivities(int id) {
+        if(id==0){
+            new StartNewActivity<ProfileActivity>(MainActivity.this,ProfileActivity.class);
+        }else if(id==1){
+            new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class);
+        }
+    }
 }
