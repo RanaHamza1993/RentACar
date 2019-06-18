@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.team.rentacar.R;
 import com.team.rentacar.baseclasses.BaseActivity;
@@ -37,6 +37,8 @@ public class LoginActivity extends BaseActivity {
     private TextView privacyPolicy;
     private TextView termsOfUse;
     private TextView forgotPassword;
+    private CheckBox adminCheck;
+    private DatabaseReference adminReference;
     private DatabaseReference userReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class LoginActivity extends BaseActivity {
         termsOfUse=findViewById(R.id.terms_of_use);
         privacyPolicy=findViewById(R.id.privacypolicy);
         forgotPassword=findViewById(R.id.forgot_password);
+        adminCheck=findViewById(R.id.admin_chehck);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +98,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void loginUser(String em, String pwd) {
-
         if(em.isEmpty()) {
             showErrorMessage("Invalid Email");
             return;
@@ -103,25 +105,28 @@ public class LoginActivity extends BaseActivity {
         if(pwd.isEmpty())
             showErrorMessage("Invalid Password");
         else{
+
             showDialog("Loging into your account","Please wait while e are logging into your account");
-            mAuth.signInWithEmailAndPassword(em,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+
+            if(!adminCheck.isChecked()) {
+                mAuth.signInWithEmailAndPassword(em, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
 
 
-                        String currentUser=mAuth.getCurrentUser().getUid();
-                        String deviceToken= FirebaseInstanceId.getInstance().getToken();
-                        SharedPreferences sharedpreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putString("token", deviceToken);
-                        editor.commit();
+                            String currentUser = mAuth.getCurrentUser().getUid();
+                            String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                            SharedPreferences sharedpreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString("token", deviceToken);
+                            editor.commit();
 
-                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        showSuccessMessage("Login successfull");
-                        finish();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            showSuccessMessage("Login successfull");
+                            finish();
 //                        userReference.child(currentUser).child("device_token").setValue(deviceToken).addOnSuccessListener(new OnSuccessListener<Void>() {
 //                            @Override
 //                            public void onSuccess(Void aVoid) {
@@ -129,13 +134,39 @@ public class LoginActivity extends BaseActivity {
 //                            }
 //                        });
 //
+                        } else {
+                            showErrorMessage("Invalid Email or passowrd");
+                        }
+                        dismissDialog();
                     }
-                    else{
-                        showErrorMessage("Invalid Email or passowrd");
+                });
+            }else{
+                adminReference= FirebaseDatabase.getInstance().getReference().child("Admin");
+                adminReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(!email.getText().toString().equals(dataSnapshot.child("email").getValue(String.class))){
+                            showErrorMessage("Invalid credentials");
+                            dismissDialog();
+                            return;
+                        }else if(!password.getText().toString().equals(dataSnapshot.child("password").getValue(String.class))) {
+                            dismissDialog();
+                            showErrorMessage("Invalid credentials");
+                            return;
+                        }
+                        else
+                        showSuccessMessage("Login as Admin");
+                        dismissDialog();
+
                     }
-                    dismissDialog();
-                }
-            });
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        dismissDialog();
+                    }
+                });
+              //  dismissDialog();
+            }
         }
     }
 }

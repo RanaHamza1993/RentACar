@@ -122,6 +122,15 @@
                             <!--End Password-->
                             <!--LoginButton-->
 
+                            <RelativeLayout android:layout_width="match_parent"
+                                          android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                                <androidx.appcompat.widget.AppCompatCheckBox
+                                        android:id="@+id/admin_chehck"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/app_small_text"
+                                android:text="Sign in as admin"/>
                             <TextView
                                     android:id="@+id/forgot_password"
                                     android:layout_width="wrap_content"
@@ -129,12 +138,13 @@
                                     android:layout_marginLeft="0dp"
                                     android:layout_marginRight="0dp"
                                     android:clickable="true"
-                                    android:layout_gravity="right"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentRight="true"
                                     android:fontFamily="@font/opensans_regular"
-                                    android:gravity="left"
                                     android:textColor="@color/blue"
                                     android:text="Forgot Password?"
                                     android:textSize="@dimen/app_mini_text" />
+                            </RelativeLayout>
                             <TextView
                                     android:id="@+id/b_login"
                                     android:layout_width="match_parent"
