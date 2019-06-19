@@ -30,11 +30,13 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
     private  LinearLayoutManager layoutManager;
     private FirebaseAuth mAuth;
     TextView signOut;
+    String role="user";
     FirebaseUser currentUser;
     RecyclerView homeRecycler;
     private DatabaseReference databaseReference;
     Toolbar toolbar;
     ArrayList<MainPageModel> arrayList = new ArrayList<>();
+    ArrayList<MainPageModel> adminArrayList = new ArrayList<>();
     private MainPageAdapter mainPageAdapter;
 
     @Override
@@ -47,6 +49,8 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SharedPreferences sharedpreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+        role=sharedpreferences.getString("role","user");
         toolbar = findViewById(R.id.home_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Car Glide");
@@ -57,11 +61,13 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
 
     }
     private void logout() {
-        SharedPreferences sharedpreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("token", "");
-        editor.commit();
-        mAuth.signOut();
+        if(role.equals("user")) {
+            SharedPreferences sharedpreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("token", "");
+            editor.commit();
+            mAuth.signOut();
+        }
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -80,9 +86,11 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
 
 
         if(item.getItemId()==R.id.action_settings){
-            if(currentUser!=null) {
+            if(currentUser!=null&&role.equals("user")) {
                 logout();
-            }else
+            }else if(role.equals("admin"))
+                logout();
+                else
                 showErrorMessage("Invalid User");
         }
         return super.onOptionsItemSelected(item);
@@ -91,18 +99,29 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
     private void setAdapter(){
 
         populateArray();
+        populateAdminArray();
 
-        mainPageAdapter = new MainPageAdapter(MainActivity.this, arrayList);
+        if(role.equals("user")) {
+            mainPageAdapter = new MainPageAdapter(MainActivity.this, arrayList);
+        }else if(role.equals("admin"))
+            mainPageAdapter = new MainPageAdapter(MainActivity.this, adminArrayList);
         layoutManager = new GridLayoutManager(MainActivity.this,2);
         mainPageAdapter.setCommunicatorNavigator(this);
         homeRecycler.setLayoutManager(layoutManager);
         homeRecycler.setAdapter(mainPageAdapter);
     }
     private void populateArray() {
-        arrayList.add(new MainPageModel(1,R.drawable.googleicon, "Profile Activity"));
-        arrayList.add(new MainPageModel(2,R.drawable.googleicon, "Booking Activity"));
-        arrayList.add(new MainPageModel(3,R.drawable.googleicon, "Vendors"));
-        arrayList.add(new MainPageModel(4,R.drawable.googleicon, "Change Password"));
+        arrayList.add(new MainPageModel(1,R.drawable.profile, "Profile Activity"));
+        arrayList.add(new MainPageModel(2,R.drawable.bookings, "Booking Activity"));
+        arrayList.add(new MainPageModel(3,R.drawable.vendors, "Vendors"));
+        arrayList.add(new MainPageModel(4,R.drawable.change_pwd, "Change Password"));
+    }
+
+    private void populateAdminArray() {
+        adminArrayList.add(new MainPageModel(5,R.drawable.discount, "Discount Activity"));
+        adminArrayList.add(new MainPageModel(6,R.drawable.report, "Generate Report Activity"));
+        adminArrayList.add(new MainPageModel(7,R.drawable.vendors, "Vendors"));
+        adminArrayList.add(new MainPageModel(8,R.drawable.bookings, "Bookings Password"));
     }
 
     @Override
@@ -112,7 +131,7 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
         }else if(id==2){
             new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class);
         }else if(id==3){
-           // new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class);
+            new StartNewActivity<VendorsActivity>(MainActivity.this,VendorsActivity.class);
         }else if(id==4){
             new StartNewActivity<ChangePassword>(MainActivity.this,ChangePassword.class);
         }

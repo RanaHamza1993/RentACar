@@ -29,8 +29,9 @@
 
                 <ImageView
                         android:id="@+id/cat_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_gravity="center"
+                        android:layout_height="@dimen/image_size"
                         android:src="@drawable/common_full_open_on_phone" />
 
                 <TextView
@@ -39,7 +40,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Name"
-                        android:textSize="@dimen/app_normal_text" />
+                        android:fontFamily="@font/opensans_bold"
+                        android:textSize="@dimen/app_small_text" />
             </LinearLayout>
 
 

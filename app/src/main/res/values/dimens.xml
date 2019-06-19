@@ -153,6 +153,7 @@
     <dimen name="txtViewSize">40dp</dimen>
     <dimen name="mainSearchBarSize">20dp</dimen>
     <dimen name="notification_size">12sp</dimen>
+    <dimen name="image_size"> 80dp </dimen>
 
 
 </resources>

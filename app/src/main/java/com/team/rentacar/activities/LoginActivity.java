@@ -116,15 +116,8 @@ public class LoginActivity extends BaseActivity {
 
 
                             String currentUser = mAuth.getCurrentUser().getUid();
-                            String deviceToken = FirebaseInstanceId.getInstance().getToken();
-                            SharedPreferences sharedpreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
-                            editor.putString("token", deviceToken);
-                            editor.commit();
 
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+                            navigateToHome("user");
                             showSuccessMessage("Login successfull");
                             finish();
 //                        userReference.child(currentUser).child("device_token").setValue(deviceToken).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -154,8 +147,10 @@ public class LoginActivity extends BaseActivity {
                             showErrorMessage("Invalid credentials");
                             return;
                         }
-                        else
-                        showSuccessMessage("Login as Admin");
+                        else {
+                            navigateToHome("admin");
+                            showSuccessMessage("Login as Admin");
+                        }
                         dismissDialog();
 
                     }
@@ -168,5 +163,20 @@ public class LoginActivity extends BaseActivity {
               //  dismissDialog();
             }
         }
+    }
+    private void navigateToHome(String role){
+        String deviceToken = FirebaseInstanceId.getInstance().getToken();
+        SharedPreferences sharedpreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        if(role.equals("user"))
+        editor.putString("token", deviceToken);
+        else
+            editor.putString("token", "");
+        editor.putString("role", role);
+        editor.commit();
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("role",role);
+        startActivity(intent);
     }
 }
