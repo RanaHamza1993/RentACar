@@ -1,5 +1,6 @@
 package com.team.rentacar.activities;
 
+import android.content.Intent;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,11 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.team.rentacar.R;
 import com.team.rentacar.adapters.VendorsAdapter;
+import com.team.rentacar.contracts.Communicator;
 import com.team.rentacar.models.VendorsModel;
 
 import java.util.ArrayList;
 
-public class VendorsActivity extends AppCompatActivity {
+public class VendorsActivity extends AppCompatActivity implements Communicator.homeNavigator {
 
     private Toolbar toolbar;
     private LinearLayoutManager layoutManager;
@@ -43,10 +45,9 @@ public class VendorsActivity extends AppCompatActivity {
         populateArray();
     //    populateAdminArray();
 
-
             vendorsAdapter = new VendorsAdapter(VendorsActivity.this, arrayList);
         layoutManager = new LinearLayoutManager(VendorsActivity.this,RecyclerView.VERTICAL,false);
-//        mainPageAdapter.setCommunicatorNavigator(this);
+        vendorsAdapter.setCommunicatorNavigator(this);
         vendorsRecycler.setLayoutManager(layoutManager);
         vendorsRecycler.setAdapter(vendorsAdapter);
 
@@ -54,8 +55,17 @@ public class VendorsActivity extends AppCompatActivity {
     }
     private void populateArray() {
         arrayList.add(new VendorsModel(1,R.drawable.bookings, "Toyota"));
-        arrayList.add(new VendorsModel(2,R.drawable.bookings, "Hone"));
+        arrayList.add(new VendorsModel(2,R.drawable.bookings, "Honda"));
         arrayList.add(new VendorsModel(3,R.drawable.bookings, "Suzuki"));
-        arrayList.add(new VendorsModel(4,R.drawable.bookings, "Bmw"));
+        arrayList.add(new VendorsModel(4,R.drawable.bookings, "Japanese"));
+        arrayList.add(new VendorsModel(5,R.drawable.bookings, "Bmw"));
+        arrayList.add(new VendorsModel(6,R.drawable.bookings, "Others"));
+    }
+
+    @Override
+    public void navigateToOtherActivities(int id) {
+        Intent intent=new Intent(VendorsActivity.this,VendorsDetailActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 }

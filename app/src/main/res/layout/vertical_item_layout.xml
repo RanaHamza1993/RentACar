@@ -23,13 +23,13 @@
                 android:layout_marginBottom="@dimen/crammargin5"
                 android:layout_marginLeft="@dimen/margintop_large"
                 android:src="@drawable/cplaceholder"
-                android:id="@+id/image"/>
+                android:id="@+id/vendor_image"/>
 
         <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
-                android:id="@+id/name"
+                android:id="@+id/vendor_name"
                 android:textSize="@dimen/front_cat_text_size"
                 android:maxLines="1"
                 android:gravity="center"
