@@ -108,6 +108,9 @@ public class ProfileActivity extends BaseActivity {
         updateData.setOnClickListener(v->{
             updateProfile();
         });
+        userImage.setOnClickListener(v->{
+            chooseImage();
+        });
     }
 
 
