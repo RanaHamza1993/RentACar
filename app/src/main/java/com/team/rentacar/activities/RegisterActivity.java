@@ -115,6 +115,8 @@ public class RegisterActivity extends BaseActivity {
                          userDefaultDataReference.child("user_email").setValue(em);
                           userDefaultDataReference.child("user_cnic").setValue(cnic);
                           userDefaultDataReference.child("user_phone").setValue(phonNo);
+                          userDefaultDataReference.child("user_image").setValue("default_profile");
+                          userDefaultDataReference.child("user_address").setValue("");
                         userDefaultDataReference.child("device_token").setValue(deviceToken)
                       //  userDefaultDataReference.child("user_status").setValue("Hey i am using weChat developed by Hamza");
                        // userDefaultDataReference.child("user_image").setValue("default_profile");
