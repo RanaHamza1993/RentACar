@@ -78,8 +78,8 @@ public class ProfileActivity extends BaseActivity {
         });
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-        userDataReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
         userDataReference.keepSynced(true);
+        userDataReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
         databasestorage = FirebaseStorage.getInstance().getReference().child("Profile_Images");
         thumbImagetorage = FirebaseStorage.getInstance().getReference().child("thumb_Images");
 

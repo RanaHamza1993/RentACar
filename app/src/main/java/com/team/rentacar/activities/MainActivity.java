@@ -113,25 +113,29 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
         arrayList.add(new MainPageModel(2,R.drawable.bookings, "Booking Activity"));
         arrayList.add(new MainPageModel(3,R.drawable.vendors, "Vendors"));
         arrayList.add(new MainPageModel(4,R.drawable.change_pwd, "Change Password"));
+        arrayList.add(new MainPageModel(5,R.drawable.terms, "Terms and Conditions"));
+
     }
 
     private void populateAdminArray() {
-        adminArrayList.add(new MainPageModel(5,R.drawable.discount, "Discount Activity"));
-        adminArrayList.add(new MainPageModel(6,R.drawable.report, "Generate Report Activity"));
-        adminArrayList.add(new MainPageModel(7,R.drawable.vendors, "Vendors"));
-        adminArrayList.add(new MainPageModel(8,R.drawable.bookings, "Bookings Password"));
+        adminArrayList.add(new MainPageModel(6,R.drawable.discount, "Discount Activity"));
+        adminArrayList.add(new MainPageModel(7,R.drawable.report, "Generate Report Activity"));
+        adminArrayList.add(new MainPageModel(8,R.drawable.vendors, "Vendors"));
+        adminArrayList.add(new MainPageModel(9,R.drawable.bookings, "Bookings Password"));
     }
 
     @Override
     public void navigateToOtherActivities(int id) {
         if(id==1){
-            new StartNewActivity<NavigationActivity>(MainActivity.this,NavigationActivity.class);
+            new StartNewActivity<ProfileActivity>(MainActivity.this,ProfileActivity.class);
         }else if(id==2){
             new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class);
-        }else if(id==3){
+        }else if(id==3 || id==8){
             new StartNewActivity<VendorsActivity>(MainActivity.this,VendorsActivity.class);
         }else if(id==4){
             new StartNewActivity<ChangePassword>(MainActivity.this,ChangePassword.class);
+        }else if(id==5){
+            new StartNewActivity<TermsOfUse>(MainActivity.this,TermsOfUse.class);
         }
     }
 }

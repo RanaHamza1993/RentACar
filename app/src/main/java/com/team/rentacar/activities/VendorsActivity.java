@@ -1,6 +1,8 @@
 package com.team.rentacar.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 public class VendorsActivity extends AppCompatActivity implements Communicator.homeNavigator {
 
     private Toolbar toolbar;
+    String role="user";
     private LinearLayoutManager layoutManager;
     private RecyclerView vendorsRecycler;
     private VendorsAdapter vendorsAdapter;
@@ -25,6 +28,8 @@ public class VendorsActivity extends AppCompatActivity implements Communicator.h
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendors);
+        SharedPreferences sharedpreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+        role=sharedpreferences.getString("role","");
         toolbar = findViewById(R.id.vendors_toolbar);
         vendorsRecycler=findViewById(R.id.vendors_recycler);
         setSupportActionBar(toolbar);
@@ -64,8 +69,14 @@ public class VendorsActivity extends AppCompatActivity implements Communicator.h
 
     @Override
     public void navigateToOtherActivities(int id) {
-        Intent intent=new Intent(VendorsActivity.this,VendorsDetailActivity.class);
-        intent.putExtra("id",id);
-        startActivity(intent);
+        if(role.equals("user")) {
+            Intent intent = new Intent(VendorsActivity.this, VendorsDetailActivity.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(VendorsActivity.this, PostCarsOfVendors.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
+        }
     }
 }

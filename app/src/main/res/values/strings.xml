@@ -15,7 +15,8 @@
     </string>
 
     <string name="access_token" translatable="false">YOUR_MAPBOX_ACCESS_TOKEN</string>
-    <string name="user_location_permission_explanation">This app needs location permissions to show its functionality.</string>
+    <string name="user_location_permission_explanation">This app needs location permissions to show its functionality.
+    </string>
     <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>
     <!--<string name="google_api_key_for_login">AIzaSyDfFecRtRrRxtj4LoqKpF25lmCKgX6ag28</string>-->
 
