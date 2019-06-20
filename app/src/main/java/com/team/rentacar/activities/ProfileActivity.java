@@ -78,11 +78,10 @@ public class ProfileActivity extends BaseActivity {
         });
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-        userDataReference.keepSynced(true);
         userDataReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
         databasestorage = FirebaseStorage.getInstance().getReference().child("Profile_Images");
         thumbImagetorage = FirebaseStorage.getInstance().getReference().child("thumb_Images");
-
+        userDataReference.keepSynced(true);
         userDataReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -111,9 +111,9 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
                     listener.navigateToOtherActivities(arrayList.get(position).getId(),arrayList.get(position).getName());
                 });
             } else if (modelFlag == 2) {
-
+                String name=vendorsDetailArrayList.get(position).getImage();
                    // holder.carImage.setImageResource(vendorsDetailArrayList.get(position).getImage());
-                if (vendorsDetailArrayList.get(position).getImage().equals("default_profile"))
+                if (name!=null&&name.equals("default_profile"))
                     Glide.with(context).load(R.drawable.cplaceholder).placeholder(R.drawable.cplaceholder).into(holder.carImage);
                 else
                     Glide.with(context).load(vendorsDetailArrayList.get(position).getImage()).

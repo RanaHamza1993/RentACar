@@ -290,11 +290,12 @@ public class PostCarsOfVendors extends BaseActivity {
             vendorsReference.child(key).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if (!task.isSuccessful())
-                     //   showSuccessMessage("Data Posted successfully");
+                    if (!task.isSuccessful()) {
+                        //   showSuccessMessage("Data Posted successfully");
                         map.put("car_image", "default_profile");
                         map.put("car_thumb_image", "default_profile");
                         showErrorMessage("Data did not Post successfully");
+                    }
                 }
 
                 ;
