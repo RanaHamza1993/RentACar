@@ -51,13 +51,13 @@ public class VendorsDetailActivity extends AppCompatActivity {
     private void setAdapter(){
 
         populateArray();
-        ArrayList<VendorsDetailModel> list=new ArrayList<VendorsDetailModel>();
+     //   ArrayList<VendorsDetailModel> list=new ArrayList<VendorsDetailModel>();
 //        for (int i = 0; i <arrayList.size() ; i++) {
 //            if(arrayList.get(i).getVendorId()==vendorID){
 //                list.add(arrayList.get(i));
 //            }
 //        }
-        vendorsAdapter = new VendorsAdapter(VendorsDetailActivity.this, list,2);
+        vendorsAdapter = new VendorsAdapter(VendorsDetailActivity.this, arrayList,2);
         layoutManager = new LinearLayoutManager(VendorsDetailActivity.this,RecyclerView.VERTICAL,false);
         //vendorsAdapter.setCommunicatorNavigator(this);
         vendorsDetailRecycler.setLayoutManager(layoutManager);
