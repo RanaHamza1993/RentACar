@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ServerValue;
 import com.team.rentacar.R;
 import com.team.rentacar.adapters.MainPageAdapter;
 import com.team.rentacar.baseclasses.BaseActivity;
@@ -48,7 +46,7 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_1);
         SharedPreferences sharedpreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         role=sharedpreferences.getString("role","user");
         toolbar = findViewById(R.id.home_toolbar);
@@ -127,7 +125,7 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
     @Override
     public void navigateToOtherActivities(int id) {
         if(id==1){
-            new StartNewActivity<ProfileActivity>(MainActivity.this,ProfileActivity.class);
+            new StartNewActivity<NavigationActivity>(MainActivity.this,NavigationActivity.class);
         }else if(id==2){
             new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class);
         }else if(id==3){
