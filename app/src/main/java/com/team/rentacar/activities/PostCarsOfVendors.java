@@ -55,6 +55,7 @@ public class PostCarsOfVendors extends BaseActivity {
     Intent galleryIntent;
     File thumbImagePath;
     Uri resultUri;
+    String key;
     String[] items = new String[]{"Toyota", "Honda", "Suzuki", "Japanese", "Bmw", "Others"};
 
     @Override
@@ -218,9 +219,9 @@ public class PostCarsOfVendors extends BaseActivity {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
             final byte[] thumb_byte = byteArrayOutputStream.toByteArray();
-            vendorsReference=vendorsReference.push();
-            StorageReference filePath = databasestorage.child( vendorsReference.push()+ ".jpg");
-            final StorageReference thumbFilePath = thumbImagetorage.child(vendorsReference + ".jpg");
+            key=vendorsReference.push().getKey();
+            StorageReference filePath = databasestorage.child( key+ ".jpg");
+            final StorageReference thumbFilePath = thumbImagetorage.child(key + ".jpg");
             filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -243,12 +244,16 @@ public class PostCarsOfVendors extends BaseActivity {
                                             @Override
                                             public void onSuccess(Uri uri) {
                                                 userMap.put("car_thumb_image", uri.toString());
-                                                vendorsReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                vendorsReference.child(key).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
 
                                                         // showSuccessMessage("Image updated successfully");
+
+                                                        showSuccessMessage("Data posted successfully");
+
                                                         dismissDialog();
+                                                        finish();
                                                     }
 
                                                 });
@@ -281,12 +286,12 @@ public class PostCarsOfVendors extends BaseActivity {
             map.put("vendor_name", vendName);
             map.put("car_address", carAddress.getText().toString());
             map.put("hourly_rate", hourlyPrice.getText().toString());
-            vendorsReference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            vendorsReference.child(key).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful())
-                        showSuccessMessage("Data Posted successfully");
-                    else
+                    if (!task.isSuccessful())
+                     //   showSuccessMessage("Data Posted successfully");
+
                         showErrorMessage("Data did not Post successfully");
                 }
 
