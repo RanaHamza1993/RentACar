@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
     }
 
     @Override
-    public void navigateToOtherActivities(int id) {
+    public void navigateToOtherActivities(int id,String vendor) {
         if(id==1){
             new StartNewActivity<ProfileActivity>(MainActivity.this,ProfileActivity.class);
         }else if(id==2){

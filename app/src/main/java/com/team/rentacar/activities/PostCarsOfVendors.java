@@ -283,6 +283,7 @@ public class PostCarsOfVendors extends BaseActivity {
 
         Map<String, Object> map = new HashMap<>();
             map.put("car_name", carName.getText().toString());
+            map.put("id", key);
             map.put("vendor_name", vendName);
             map.put("car_address", carAddress.getText().toString());
             map.put("hourly_rate", hourlyPrice.getText().toString());
@@ -291,7 +292,8 @@ public class PostCarsOfVendors extends BaseActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (!task.isSuccessful())
                      //   showSuccessMessage("Data Posted successfully");
-
+                        map.put("car_image", "default_profile");
+                        map.put("car_thumb_image", "default_profile");
                         showErrorMessage("Data did not Post successfully");
                 }
 

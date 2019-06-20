@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import com.team.rentacar.R;
 import com.team.rentacar.contracts.Communicator;
 import com.team.rentacar.models.VendorsDetailModel;
@@ -107,11 +108,16 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
                 holder.vendorImage.setImageResource(arrayList.get(position).getImage());
                 holder.vendorName.setText(arrayList.get(position).getName());
                 holder.itemView.setOnClickListener(v -> {
-                    listener.navigateToOtherActivities(arrayList.get(position).getId());
+                    listener.navigateToOtherActivities(arrayList.get(position).getId(),arrayList.get(position).getName());
                 });
             } else if (modelFlag == 2) {
 
-                    holder.carImage.setImageResource(vendorsDetailArrayList.get(position).getImage());
+                   // holder.carImage.setImageResource(vendorsDetailArrayList.get(position).getImage());
+                if (vendorsDetailArrayList.get(position).getImage().equals("default_profile"))
+                    Glide.with(context).load(R.drawable.cplaceholder).placeholder(R.drawable.cplaceholder).into(holder.carImage);
+                else
+                    Glide.with(context).load(vendorsDetailArrayList.get(position).getImage()).
+                            placeholder(R.drawable.cplaceholder).into(holder.carImage);
                     holder.carName.setText(vendorsDetailArrayList.get(position).getCarName());
                     holder.vendorName.setText(vendorsDetailArrayList.get(position).getVendorName());
                     holder.vendorAddress.setText(vendorsDetailArrayList.get(position).getVendorAddress());

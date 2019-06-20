@@ -105,10 +105,10 @@ public class VendorsActivity extends AppCompatActivity implements Communicator.h
     }
 
     @Override
-    public void navigateToOtherActivities(int id) {
+    public void navigateToOtherActivities(int id,String vendor) {
         if(role.equals("user")) {
             Intent intent = new Intent(VendorsActivity.this, VendorsDetailActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("vendor", vendor);
             startActivity(intent);
         }else{
             Intent intent = new Intent(VendorsActivity.this, PostCarsOfVendors.class);

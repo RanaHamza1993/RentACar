@@ -42,7 +42,7 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.MainHo
         holder.cat_text.setText(arrayList.get(position).getCatName());
         holder.itemView.setOnClickListener(v->{
             if(listener!=null)
-            listener.navigateToOtherActivities(arrayList.get(position).getId());
+            listener.navigateToOtherActivities(arrayList.get(position).getId(),arrayList.get(position).getCatName());
         });
     }
 
