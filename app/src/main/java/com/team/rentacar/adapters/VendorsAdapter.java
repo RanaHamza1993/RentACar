@@ -115,9 +115,10 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
                    // holder.carImage.setImageResource(vendorsDetailArrayList.get(position).getImage());
                 if (name!=null&&name.equals("default_profile"))
                     Glide.with(context).load(R.drawable.cplaceholder).placeholder(R.drawable.cplaceholder).into(holder.carImage);
-                else
+                else {
                     Glide.with(context).load(vendorsDetailArrayList.get(position).getImage()).
                             placeholder(R.drawable.cplaceholder).into(holder.carImage);
+                }
                     holder.carName.setText(vendorsDetailArrayList.get(position).getCarName());
                     holder.vendorName.setText(vendorsDetailArrayList.get(position).getVendorName());
                     holder.vendorAddress.setText(vendorsDetailArrayList.get(position).getVendorAddress());
