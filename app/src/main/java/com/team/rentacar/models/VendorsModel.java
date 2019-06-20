@@ -1,6 +1,6 @@
 package com.team.rentacar.models;
 
-public class VendorsModel {
+public class VendorsModel implements Comparable<VendorsModel> {
     int id;
     int image;
     String name;
@@ -33,5 +33,19 @@ public class VendorsModel {
 
     public void setImage(int image) {
         this.image = image;
+    }
+
+    @Override
+    public int compareTo(VendorsModel o) {
+        if(this.id==o.id){
+            return 0;
+        }
+        else if(this.id < o.id){
+            return -1;
+        }
+        else{
+            return 1;
+        }
+
     }
 }

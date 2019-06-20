@@ -86,7 +86,7 @@ public class PostCarsOfVendors extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 vendName = items[position];
-                vendorsReference = FirebaseDatabase.getInstance().getReference().child("Vendors").child(vendName);
+                vendorsReference = FirebaseDatabase.getInstance().getReference().child("Vendors").child(vendName).child("vendor_cars");
 
                // showSuccessMessage(vendName);
             }
