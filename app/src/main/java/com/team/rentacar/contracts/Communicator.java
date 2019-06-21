@@ -5,4 +5,7 @@ public interface Communicator {
 
         void navigateToOtherActivities(int id,String vendor);
     }
+    interface IRent{
+        void rentIt(String id);
+    }
 }

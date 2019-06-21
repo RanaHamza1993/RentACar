@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.team.rentacar.R;
+import com.team.rentacar.activities.VendorsDetailActivity;
 import com.team.rentacar.contracts.Communicator;
 import com.team.rentacar.models.VendorsDetailModel;
 import com.team.rentacar.models.VendorsModel;
@@ -24,10 +25,14 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
     private List<VendorsModel> arrayList;
     private List<VendorsDetailModel> vendorsDetailArrayList;
     private Communicator.homeNavigator listener;
+    private Communicator.IRent rentListener;
     public void setCommunicatorNavigator(Communicator.homeNavigator listener) {
         this.listener = listener;
     }
 
+    public void setRentCommunicator(Communicator.IRent rentListener) {
+        this.rentListener=rentListener;
+    }
     private int modelFlag = 1;
 
     public VendorsAdapter(Context context, ArrayList<VendorsModel> arrayList) {
@@ -56,7 +61,7 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
 
     @Override
     public void onBindViewHolder(@NonNull VendorsAdapter.VendorsHolder holder, int position) {
-        holder.setData(holder, position);
+        holder.setData( position);
     }
 
     @Override
@@ -65,20 +70,11 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
             return arrayList.size();
         else if (modelFlag == 2) {
            return vendorsDetailArrayList.size();
-//            int count=0;
-//            for (int i = 0; i <vendorsDetailArrayList.size() ; i++) {
-//                if(vendorsDetailArrayList.get(i).getId()==vendorID){
-//
-//                    vendorsDetailArrayList=vendorsDetailArrayList.subList(i,i+1);
-//                    count++;
-//                }
-//
-//            }
-//           return count;
         }
         else
             return arrayList.size();
     }
+
 
     public class VendorsHolder extends RecyclerView.ViewHolder {
         ImageView vendorImage;
@@ -102,27 +98,30 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
 
         }
 
-        public void setData(VendorsAdapter.VendorsHolder holder, int position) {
+        public void setData( int position) {
             if (modelFlag == 1) {
 
-                holder.vendorImage.setImageResource(arrayList.get(position).getImage());
-                holder.vendorName.setText(arrayList.get(position).getName());
-                holder.itemView.setOnClickListener(v -> {
+                vendorImage.setImageResource(arrayList.get(position).getImage());
+                vendorName.setText(arrayList.get(position).getName());
+                itemView.setOnClickListener(v -> {
                     listener.navigateToOtherActivities(arrayList.get(position).getId(),arrayList.get(position).getName());
                 });
             } else if (modelFlag == 2) {
                 String name=vendorsDetailArrayList.get(position).getImage();
                    // holder.carImage.setImageResource(vendorsDetailArrayList.get(position).getImage());
                 if (name!=null&&name.equals("default_profile"))
-                    Glide.with(context).load(R.drawable.cplaceholder).placeholder(R.drawable.cplaceholder).into(holder.carImage);
+                    Glide.with(context).load(R.drawable.cplaceholder).placeholder(R.drawable.cplaceholder).into(carImage);
                 else {
                     Glide.with(context).load(vendorsDetailArrayList.get(position).getImage()).
-                            placeholder(R.drawable.cplaceholder).into(holder.carImage);
+                            placeholder(R.drawable.cplaceholder).into(carImage);
                 }
-                    holder.carName.setText(vendorsDetailArrayList.get(position).getCarName());
-                    holder.vendorName.setText(vendorsDetailArrayList.get(position).getVendorName());
-                    holder.vendorAddress.setText(vendorsDetailArrayList.get(position).getVendorAddress());
-                    holder.hourlyPrice.setText(vendorsDetailArrayList.get(position).getHourlyPrice());
+                    carName.setText(vendorsDetailArrayList.get(position).getCarName());
+                    vendorName.setText(vendorsDetailArrayList.get(position).getVendorName());
+                    vendorAddress.setText(vendorsDetailArrayList.get(position).getVendorAddress());
+                    hourlyPrice.setText(vendorsDetailArrayList.get(position).getHourlyPrice());
+                    rentIt.setOnClickListener(v->{
+                        rentListener.rentIt(vendorsDetailArrayList.get(position).getId());
+                    });
 
             }
         }
