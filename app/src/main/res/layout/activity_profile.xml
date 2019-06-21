@@ -25,7 +25,7 @@
             <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/b">
+                    android:background="@drawable/cov">
 
                 <com.mikhaellopez.circularimageview.CircularImageView
                         android:id="@+id/user_profile"

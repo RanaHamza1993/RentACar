@@ -31,6 +31,7 @@ public class VendorsActivity extends AppCompatActivity implements Communicator.h
     private VendorsAdapter vendorsAdapter;
     ArrayList<VendorsModel> arrayList = new ArrayList<>();
     DatabaseReference vendorsReference;
+    int[] drawables=new int[]{R.drawable.toyota_cov,R.drawable.honda_cov,R.drawable.suzuki_cov,R.drawable.jap_cov,R.drawable.bmw_cov,R.drawable.others_cov};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class VendorsActivity extends AppCompatActivity implements Communicator.h
     private void setAdapter(){
 
         populateArray();
-        vendorsAdapter = new VendorsAdapter(VendorsActivity.this, arrayList);
+        vendorsAdapter = new VendorsAdapter(VendorsActivity.this, arrayList,drawables);
         layoutManager = new LinearLayoutManager(VendorsActivity.this,RecyclerView.VERTICAL,false);
         vendorsAdapter.setCommunicatorNavigator(this);
         vendorsRecycler.setLayoutManager(layoutManager);

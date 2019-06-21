@@ -8,25 +8,26 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.team.rentacar.R;
 import com.team.rentacar.adapters.VendorsAdapter;
+import com.team.rentacar.baseclasses.BaseActivity;
 import com.team.rentacar.contracts.Communicator;
 import com.team.rentacar.models.VendorsDetailModel;
 import com.team.rentacar.models.VendorsModel;
+import es.dmoral.toasty.Toasty;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
-public class VendorsDetailActivity extends AppCompatActivity implements Communicator.IRent {
+public class VendorsDetailActivity extends BaseActivity implements Communicator.IRent {
 
     Toolbar toolbar;
     private RecyclerView vendorsDetailRecycler;
@@ -34,10 +35,14 @@ public class VendorsDetailActivity extends AppCompatActivity implements Communic
     private VendorsAdapter vendorsAdapter;
     private String vendorName = "";
     DatabaseReference vendorsDetailReference;
+    private DatabaseReference userReference;
+    private DatabaseReference bookingReference;
     Spinner rentDaysSpinner;
+
     int rentDays = 1;
     ArrayList<VendorsDetailModel> arrayList = new ArrayList<>();
     String[] days = new String[]{"1 Day", "2 Days", "3 Days"};
+    private int rentValue=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,8 @@ public class VendorsDetailActivity extends AppCompatActivity implements Communic
             }
         });
         vendorsDetailReference = FirebaseDatabase.getInstance().getReference().child("Vendors").child(vendorName).child("vendor_cars");
-
+        bookingReference = FirebaseDatabase.getInstance().getReference().child("Bookings").child(vendorName);
+        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getUid());
 
         setAdapter();
     }
@@ -112,28 +118,43 @@ public class VendorsDetailActivity extends AppCompatActivity implements Communic
 
             }
         });
-//        arrayList.add(new VendorsDetailModel(1,1,R.drawable.bookings, "Gli","Toyota","Gulberg","2000 Rs"));
-//        arrayList.add(new VendorsDetailModel(1,2,R.drawable.bookings, "Xli","Toyota","Model Town","1700 Rs"));
-//        arrayList.add(new VendorsDetailModel(2,3,R.drawable.bookings, "Civic","Honda","Green Town","2800 Rs"));
-//        arrayList.add(new VendorsDetailModel(3,4,R.drawable.bookings, "Cultus","Suzuki","Faisal Town","1500 Rs"));
-//        arrayList.add(new VendorsDetailModel(4,5,R.drawable.bookings, "Vitz","Japanese","Johar Town","1500 Rs"));
 //        arrayList.add(new VendorsDetailModel(5,6,R.drawable.bookings, "Bmw","Bmw","Qartaba Chowk","5000 Rs"));
-
     }
 
-    void showRentDialog() {
+    void showRentDialog(String carId) {
         Dialog rentDialog = new Dialog(this);
         rentDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         rentDialog.setCancelable(true);
         rentDialog.setContentView(R.layout.rent_dialog);
         rentDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         rentDaysSpinner = rentDialog.findViewById(R.id.rent_days_spinner);
+        TextView rentPrice = rentDialog.findViewById(R.id.rent_price);
+        TextView submit = rentDialog.findViewById(R.id.rent_it);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, days);
         rentDaysSpinner.setAdapter(adapter);
         rentDaysSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 rentDays = Integer.parseInt(days[position].substring(0, 1));
+                vendorsDetailReference.child(carId).child("hourly_rate").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        rentValue = Integer.parseInt(dataSnapshot.getValue(String.class));
+                        String days = "";
+                        if (rentDays == 1)
+                            days = "Day";
+                        else
+                            days = "Days";
+                        rentPrice.setText("You have to pay " + (rentValue * rentDays) + " for " + rentDays + " " + days);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
             @Override
@@ -142,11 +163,29 @@ public class VendorsDetailActivity extends AppCompatActivity implements Communic
             }
 
         });
+        submit.setOnClickListener(v -> {
+            userReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String username = dataSnapshot.child("user_name").getValue(String.class);
+                    Map<String,Object> map=new HashMap<String,Object>();
+                    map.put("Booked",carId);
+                    map.put("rent_days",String.valueOf(rentDays));
+                    map.put("rent_price",String.valueOf(rentValue*rentDays));
+                    bookingReference.child(FirebaseAuth.getInstance().getUid()).child(carId).updateChildren(map);
+                    showSuccessMessage("Congratulation  Mr. " + username + " you have booked this vehicle successfully");
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        });
         rentDialog.show();
     }
 
     @Override
     public void rentIt(String id) {
-        showRentDialog();
+        showRentDialog(id);
     }
 }

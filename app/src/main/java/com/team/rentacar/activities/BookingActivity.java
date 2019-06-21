@@ -15,7 +15,7 @@ public class BookingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_booking);
         toolbar = findViewById(R.id.booking_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Bookings");
+        getSupportActionBar().setTitle("Your Bookings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.team.rentacar.R;
+import com.team.rentacar.activities.VendorsActivity;
 import com.team.rentacar.activities.VendorsDetailActivity;
 import com.team.rentacar.contracts.Communicator;
 import com.team.rentacar.models.VendorsDetailModel;
@@ -26,6 +27,13 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
     private List<VendorsDetailModel> vendorsDetailArrayList;
     private Communicator.homeNavigator listener;
     private Communicator.IRent rentListener;
+    private int[] drawables;
+    public VendorsAdapter(Context context, ArrayList<VendorsModel> arrayList, int[] drawables) {
+        this.context=context;
+        this.arrayList=arrayList;
+        this.drawables=drawables;
+    }
+
     public void setCommunicatorNavigator(Communicator.homeNavigator listener) {
         this.listener = listener;
     }
@@ -101,7 +109,7 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
         public void setData( int position) {
             if (modelFlag == 1) {
 
-                vendorImage.setImageResource(arrayList.get(position).getImage());
+                vendorImage.setImageResource(drawables[position]);
                 vendorName.setText(arrayList.get(position).getName());
                 itemView.setOnClickListener(v -> {
                     listener.navigateToOtherActivities(arrayList.get(position).getId(),arrayList.get(position).getName());

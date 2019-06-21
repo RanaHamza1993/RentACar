@@ -39,7 +39,7 @@
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/black"
                 android:gravity="left"
-                android:textSize="@dimen/tv_heading3_fontsize"
+                android:textSize="@dimen/app_small_text"
                 android:textStyle="bold"
         />
 
@@ -56,6 +56,20 @@
                 android:spinnerMode="dropdown" />
 
         <TextView
+                android:id="@+id/rent_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/text_padding_how_it"
+                android:text=""
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/black"
+                android:gravity="left"
+                android:textSize="@dimen/app_small_text"
+                android:textStyle="bold"
+        />
+
+        <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/text_padding_how_it"
@@ -64,7 +78,7 @@
                 android:layout_marginRight="8dp"
                 android:textColor="@color/black"
                 android:gravity="left"
-                android:textSize="@dimen/tv_heading3_fontsize"
+                android:textSize="@dimen/app_small_text"
                 android:textStyle="bold"
         />
         <Button
