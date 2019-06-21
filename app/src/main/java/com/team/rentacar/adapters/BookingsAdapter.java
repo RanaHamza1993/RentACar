@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.team.rentacar.R;
+import com.team.rentacar.activities.BookingActivity;
 import com.team.rentacar.models.VendorsDetailModel;
 import com.team.rentacar.models.VendorsModel;
 
@@ -18,10 +19,10 @@ import java.util.List;
 
 public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.BookingsHolder> {
     private Context context;
-    private List<VendorsDetailModel> vendorsDetailArrayList;
-    public BookingsAdapter(Context context, ArrayList<VendorsDetailModel> vendorsDetailArrayList, int[] drawables) {
+    private List<VendorsDetailModel> bookingList;
+    public BookingsAdapter(Context context, ArrayList<VendorsDetailModel> bookingList) {
         this.context=context;
-        this.vendorsDetailArrayList=vendorsDetailArrayList;
+        this.bookingList=bookingList;
     }
 
     @NonNull
@@ -39,7 +40,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
 
     @Override
     public int getItemCount() {
-        return vendorsDetailArrayList.size();
+        return bookingList.size();
     }
 
     public class BookingsHolder extends RecyclerView.ViewHolder {
@@ -59,18 +60,18 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             rentIt = itemView.findViewById(R.id.rent_car);
         }
         void setData(int position){
-            String name=vendorsDetailArrayList.get(position).getImage();
-            // holder.carImage.setImageResource(vendorsDetailArrayList.get(position).getImage());
+            String name=bookingList.get(position).getImage();
+            // holder.carImage.setImageResource(bookingList.get(position).getImage());
             if (name!=null&&name.equals("default_profile"))
                 Glide.with(context).load(R.drawable.cplaceholder).placeholder(R.drawable.cplaceholder).into(carImage);
             else {
-                Glide.with(context).load(vendorsDetailArrayList.get(position).getImage()).
+                Glide.with(context).load(bookingList.get(position).getImage()).
                         placeholder(R.drawable.cplaceholder).into(carImage);
             }
-            carName.setText(vendorsDetailArrayList.get(position).getCarName());
-            vendorName.setText(vendorsDetailArrayList.get(position).getVendorName());
-            vendorAddress.setText(vendorsDetailArrayList.get(position).getVendorAddress());
-            hourlyPrice.setText(vendorsDetailArrayList.get(position).getHourlyPrice());
+            carName.setText(bookingList.get(position).getCarName());
+            vendorName.setText(bookingList.get(position).getVendorName());
+            vendorAddress.setText(bookingList.get(position).getVendorAddress());
+            hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
             rentIt.setVisibility(View.GONE);
 
         }
