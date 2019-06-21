@@ -175,9 +175,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif"
-                                android:hint="Hourly Rate"
+                                android:hint="Per Day Rate"
                                 android:inputType="number"
                                 android:singleLine="true"
+                                android:digits="1234567890"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/gray"
                         />

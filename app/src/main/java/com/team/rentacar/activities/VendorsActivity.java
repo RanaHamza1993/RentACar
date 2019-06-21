@@ -111,10 +111,6 @@ public class VendorsActivity extends AppCompatActivity implements Communicator.h
             Intent intent = new Intent(VendorsActivity.this, VendorsDetailActivity.class);
             intent.putExtra("vendor", vendor);
             startActivity(intent);
-        }else{
-            Intent intent = new Intent(VendorsActivity.this, PostCarsOfVendors.class);
-            intent.putExtra("id", id);
-            startActivity(intent);
         }
     }
 

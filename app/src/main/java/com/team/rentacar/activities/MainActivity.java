@@ -130,12 +130,14 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
             new StartNewActivity<ProfileActivity>(MainActivity.this,ProfileActivity.class);
         }else if(id==2){
             new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class);
-        }else if(id==3 || id==8){
+        }else if(id==3){
             new StartNewActivity<VendorsActivity>(MainActivity.this,VendorsActivity.class);
         }else if(id==4){
             new StartNewActivity<ChangePassword>(MainActivity.this,ChangePassword.class);
         }else if(id==5){
             new StartNewActivity<TermsOfUse>(MainActivity.this,TermsOfUse.class);
+        }else if(id==8){
+            new StartNewActivity<PostCarsOfVendors>(MainActivity.this,PostCarsOfVendors.class);
         }
     }
 }
