@@ -8,4 +8,9 @@ public class StartNewActivity<T> {
        Intent intent=new Intent(from,to);
        from.startActivity(intent);
    }
+    public StartNewActivity(Context from,Class<T> to,int extra){
+        Intent intent=new Intent(from,to);
+        intent.putExtra("extra",extra);
+        from.startActivity(intent);
+    }
 }

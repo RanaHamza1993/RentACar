@@ -8,6 +8,15 @@ public class VendorsDetailModel {
     String vendorName;
     String vendorAddress;
     String hourlyPrice;
+    String bookedBy;
+
+    public String getBookedBy() {
+        return bookedBy;
+    }
+
+    public void setBookedBy(String bookedBy) {
+        this.bookedBy = bookedBy;
+    }
 
     public VendorsDetailModel (String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice) {
         this.id = id;
@@ -16,6 +25,15 @@ public class VendorsDetailModel {
         this.vendorName = vendorName;
         this.vendorAddress = vendorAddress;
         this.hourlyPrice = hourlyPrice;
+    }
+    public VendorsDetailModel (String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice,String bookedBy) {
+        this.id = id;
+        this.image = image;
+        this.carName = carName;
+        this.vendorName = vendorName;
+        this.vendorAddress = vendorAddress;
+        this.hourlyPrice = hourlyPrice;
+        this.bookedBy=bookedBy;
     }
 
 //    public int getVendorId() {

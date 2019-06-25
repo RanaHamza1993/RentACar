@@ -121,7 +121,7 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
         adminArrayList.add(new MainPageModel(6,R.drawable.discount, "Discount Activity"));
         adminArrayList.add(new MainPageModel(7,R.drawable.report, "Generate Report Activity"));
         adminArrayList.add(new MainPageModel(8,R.drawable.vendors, "Vendors"));
-        adminArrayList.add(new MainPageModel(9,R.drawable.bookings, "Bookings Password"));
+        adminArrayList.add(new MainPageModel(9,R.drawable.bookings, "Bookings"));
     }
 
     @Override
@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
         if(id==1){
             new StartNewActivity<ProfileActivity>(MainActivity.this,ProfileActivity.class);
         }else if(id==2){
-            new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class);
+            new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class,1);
         }else if(id==3){
             new StartNewActivity<VendorsActivity>(MainActivity.this,VendorsActivity.class);
         }else if(id==4){
@@ -138,6 +138,9 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
             new StartNewActivity<TermsOfUse>(MainActivity.this,TermsOfUse.class);
         }else if(id==8){
             new StartNewActivity<PostCarsOfVendors>(MainActivity.this,PostCarsOfVendors.class);
+        }else if(id==9) {
+            new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class,2);
+
         }
     }
 }

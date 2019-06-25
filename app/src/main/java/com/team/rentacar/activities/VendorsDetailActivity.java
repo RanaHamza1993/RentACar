@@ -168,10 +168,13 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String username = dataSnapshot.child("user_name").getValue(String.class);
+                    String userCnic = dataSnapshot.child("user_cnic").getValue(String.class);
                     Map<String,Object> map=new HashMap<String,Object>();
                     map.put("Booked",carId);
                     map.put("rent_days",String.valueOf(rentDays));
                     map.put("rent_price",String.valueOf(rentValue*rentDays));
+                    map.put("booked_by",username);
+                    map.put("user_cnic",userCnic);
                     bookingReference.child(FirebaseAuth.getInstance().getUid()).child(carId).updateChildren(map);
                     showSuccessMessage("Congratulation  Mr. " + username + " you have booked this vehicle successfully");
                 }

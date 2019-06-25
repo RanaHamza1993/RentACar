@@ -19,10 +19,12 @@ import java.util.List;
 
 public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.BookingsHolder> {
     private Context context;
+    int flag=1;
     private List<VendorsDetailModel> bookingList;
-    public BookingsAdapter(Context context, ArrayList<VendorsDetailModel> bookingList) {
+    public BookingsAdapter(Context context, ArrayList<VendorsDetailModel> bookingList,int flag) {
         this.context=context;
         this.bookingList=bookingList;
+        this.flag=flag;
     }
 
     @NonNull
@@ -71,7 +73,10 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             carName.setText(bookingList.get(position).getCarName());
             vendorName.setText(bookingList.get(position).getVendorName());
             vendorAddress.setText(bookingList.get(position).getVendorAddress());
+            if(flag==1)
             hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
+            else
+                hourlyPrice.setText("Booked by: "+bookingList.get(position).getBookedBy());
             rentIt.setVisibility(View.GONE);
 
         }
