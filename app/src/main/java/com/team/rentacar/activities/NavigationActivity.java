@@ -16,6 +16,8 @@ import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.BaseMarkerOptions;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
@@ -78,12 +80,15 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
                     @Override
                     public void onClick(View v) {
                         boolean simulateRoute = true;
-                        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
-                                .directionsRoute(currentRoute)
-                                .shouldSimulateRoute(simulateRoute)
-                                .build();
-                        // Call this method with Context from within an Activity
-                        NavigationLauncher.startNavigation(NavigationActivity.this, options);
+                        if (currentRoute != null) {
+                            NavigationLauncherOptions options = NavigationLauncherOptions.builder()
+                                    .directionsRoute(currentRoute)
+                                    .shouldSimulateRoute(simulateRoute)
+                                    .build();
+
+                            // Call this method with Context from within an Activity
+                            NavigationLauncher.startNavigation(NavigationActivity.this, options);
+                        }
                     }
                 });
             }
@@ -109,13 +114,18 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
     public boolean onMapClick(@NonNull LatLng point) {
 
         Point destinationPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
+
         Location location=locationComponent.getLastKnownLocation();
         Point originPoint;
         if(location!=null) {
-            originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
-                    locationComponent.getLastKnownLocation().getLatitude());
+            originPoint = Point.fromLngLat(
+                    74.2419427,31.4645789);
 
             GeoJsonSource source = mapboxMap.getStyle().getSourceAs("destination-source-id");
+
+        //    mapboxMap.addMarker(new MarkerOptions().setTitle("HeadQuarter").position(Point.fromLngLat(-87.679, 41.885)))));
+
+
             if (source != null) {
                 source.setGeoJson(Feature.fromGeometry(destinationPoint));
             }
