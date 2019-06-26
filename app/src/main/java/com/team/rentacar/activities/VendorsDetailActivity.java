@@ -102,9 +102,10 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                         String carImage = dataSnapshot.child(o.toString()).child("car_thumb_image").getValue(String.class);
                         String hourlyRate = dataSnapshot.child(o.toString()).child("hourly_rate").getValue(String.class);
                         String vendorName = dataSnapshot.child(o.toString()).child("vendor_name").getValue(String.class);
+                        boolean isBooked = dataSnapshot.child(o.toString()).child("isBooked").getValue(Boolean.class);
 
 
-                        arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate));
+                        arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,isBooked));
 
                     }
                 } catch (Exception e) {
@@ -175,8 +176,13 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                     map.put("rent_price",String.valueOf(rentValue*rentDays));
                     map.put("booked_by",username);
                     map.put("user_cnic",userCnic);
+                    map.put("vendor_name",vendorName);
+                    Map<String,Object> vendorDetail=new HashMap<String,Object>();
+                    vendorDetail.put("isBooked",true);
+                    vendorsDetailReference.child(carId).updateChildren(vendorDetail);
                     bookingReference.child(FirebaseAuth.getInstance().getUid()).child(carId).updateChildren(map);
                     showSuccessMessage("Congratulation  Mr. " + username + " you have booked this vehicle successfully");
+                    rentDialog.dismiss();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {

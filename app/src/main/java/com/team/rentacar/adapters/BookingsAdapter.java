@@ -54,6 +54,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
         TextView vendorAddress;
         TextView hourlyPrice;
         TextView rentIt;
+        TextView sendCar;
         public BookingsHolder(@NonNull View itemView) {
             super(itemView);
             vendorName = itemView.findViewById(R.id.vendor_name);
@@ -62,6 +63,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             vendorAddress = itemView.findViewById(R.id.vendor_address);
             hourlyPrice = itemView.findViewById(R.id.hourly_rate);
             rentIt = itemView.findViewById(R.id.rent_car);
+            sendCar = itemView.findViewById(R.id.send_car);
         }
         void setData(int position){
             String name=bookingList.get(position).getImage();
@@ -77,16 +79,22 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             vendorAddress.setText(bookingList.get(position).getVendorAddress());
             if(flag==1) {
                 hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
+                sendCar.setVisibility(View.GONE);
 
             }
             else {
                 hourlyPrice.setText("Booked by: " + bookingList.get(position).getBookedBy());
-                itemView.setOnClickListener(v->{
+                rentIt.setText("Cancel");
+                rentIt.setOnClickListener(v->{
+                    
+                });
+                sendCar.setVisibility(View.VISIBLE);
+                sendCar.setOnClickListener(v->{
                     new StartNewActivity<NavigationActivity>(context,NavigationActivity.class);
                 });
             }
 
-            rentIt.setVisibility(View.GONE);
+//            rentIt.setVisibility(View.GONE);
 
         }
     }

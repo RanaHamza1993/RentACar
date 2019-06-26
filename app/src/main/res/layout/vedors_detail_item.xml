@@ -116,6 +116,11 @@
 
         </LinearLayout>
 
+        <LinearLayout
+                android:layout_width="match_parent"
+                      android:orientation="vertical"
+                android:layout_below="@id/cart_layout"
+                      android:layout_height="wrap_content">
         <TextView
                 android:id="@+id/rent_car"
                 android:layout_width="match_parent"
@@ -135,6 +140,25 @@
                 android:textStyle="bold" />
 
 
+        <TextView
+                android:id="@+id/send_car"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cart_layout"
+                android:layout_marginRight="@dimen/button_elevation"
+                android:layout_marginLeft="@dimen/button_elevation"
+                android:layout_marginBottom="@dimen/button_elevation"
+                android:background="@drawable/bid_buy_btns_home"
+                android:padding="5dp"
+                android:text="Send Car"
+                android:visibility="gone"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:elevation="@dimen/button_elevation"
+                android:textColor="@drawable/bidbuybtntextstate"
+                android:textSize="@dimen/bidCardbtntext"
+                android:textStyle="bold" />
+        </LinearLayout>
     </RelativeLayout>
 
 

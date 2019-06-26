@@ -9,6 +9,7 @@ public class VendorsDetailModel {
     String vendorAddress;
     String hourlyPrice;
     String bookedBy;
+    boolean isBooked;
 
     public String getBookedBy() {
         return bookedBy;
@@ -18,24 +19,33 @@ public class VendorsDetailModel {
         this.bookedBy = bookedBy;
     }
 
-    public VendorsDetailModel (String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice) {
-        this.id = id;
-        this.image = image;
-        this.carName = carName;
-        this.vendorName = vendorName;
-        this.vendorAddress = vendorAddress;
-        this.hourlyPrice = hourlyPrice;
-    }
-    public VendorsDetailModel (String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice,String bookedBy) {
-        this.id = id;
-        this.image = image;
-        this.carName = carName;
-        this.vendorName = vendorName;
-        this.vendorAddress = vendorAddress;
-        this.hourlyPrice = hourlyPrice;
-        this.bookedBy=bookedBy;
+    public boolean isBooked() {
+        return isBooked;
     }
 
+    public void setBooked(boolean booked) {
+        isBooked = booked;
+    }
+
+    public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice, String bookedBy, boolean isBooked) {
+        this.id = id;
+        this.image = image;
+        this.carName = carName;
+        this.vendorName = vendorName;
+        this.vendorAddress = vendorAddress;
+        this.hourlyPrice = hourlyPrice;
+        this.bookedBy = bookedBy;
+        this.isBooked = isBooked;
+    }
+    public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice,  boolean isBooked) {
+        this.id = id;
+        this.image = image;
+        this.carName = carName;
+        this.vendorName = vendorName;
+        this.vendorAddress = vendorAddress;
+        this.hourlyPrice = hourlyPrice;
+        this.isBooked = isBooked;
+    }
 //    public int getVendorId() {
 //        return vendorId;
 //    }

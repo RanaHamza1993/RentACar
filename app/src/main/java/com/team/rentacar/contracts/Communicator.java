@@ -8,4 +8,7 @@ public interface Communicator {
     interface IRent{
         void rentIt(String id);
     }
+    interface IBookings{
+        void cancel(String id);
+    }
 }

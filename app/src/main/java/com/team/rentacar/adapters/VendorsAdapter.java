@@ -127,7 +127,11 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
                     vendorName.setText(vendorsDetailArrayList.get(position).getVendorName());
                     vendorAddress.setText(vendorsDetailArrayList.get(position).getVendorAddress());
                     hourlyPrice.setText(vendorsDetailArrayList.get(position).getHourlyPrice());
+                    if(vendorsDetailArrayList.get(position).isBooked()==true)
+                        rentIt.setText("Already booked");
+                    else
                     rentIt.setOnClickListener(v->{
+                        if(vendorsDetailArrayList.get(position).isBooked()==false)
                         rentListener.rentIt(vendorsDetailArrayList.get(position).getId());
                     });
 

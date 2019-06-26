@@ -14,6 +14,7 @@ import com.google.firebase.database.*;
 import com.team.rentacar.R;
 import com.team.rentacar.adapters.BookingsAdapter;
 import com.team.rentacar.adapters.VendorsAdapter;
+import com.team.rentacar.contracts.Communicator;
 import com.team.rentacar.models.VendorsDetailModel;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-public class BookingActivity extends AppCompatActivity {
+public class BookingActivity extends AppCompatActivity implements Communicator.IBookings {
 
     private Toolbar toolbar;
     private RecyclerView bookingRecycler;
@@ -121,7 +122,7 @@ public class BookingActivity extends AppCompatActivity {
                                                               String carImage = dataSnapshot2.child("car_thumb_image").getValue(String.class);
                                                               String hourlyRate = dataSnapshot.child(o.toString()).child(FirebaseAuth.getInstance().getUid()).child(ob.toString()).child("rent_price").getValue(String.class);
                                                               String vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
-                                                              bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate));
+                                                              bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,"",true));
                                                               bookingAdapter.notifyDataSetChanged();
 
                                                           }
@@ -225,7 +226,7 @@ public class BookingActivity extends AppCompatActivity {
                                                                           carAddress = dataSnapshot2.child("car_address").getValue(String.class);
                                                                           carImage = dataSnapshot2.child("car_thumb_image").getValue(String.class);
                                                                           vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
-                                                                          bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy));
+                                                                          bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy,true));
                                                                           bookingAdapter.notifyDataSetChanged();
                                                                       }
 
@@ -287,5 +288,10 @@ public class BookingActivity extends AppCompatActivity {
                  }
                 );
 //        arrayList.add(new VendorsDetailModel(5,6,R.drawable.bookings, "Bmw","Bmw","Qartaba Chowk","5000 Rs"));
+    }
+
+    @Override
+    public void cancel(String id) {
+
     }
 }
