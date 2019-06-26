@@ -86,6 +86,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             if(flag==1) {
                 hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
                 sendCar.setVisibility(View.GONE);
+                rentIt.setVisibility(View.GONE);
 
             }
             else {

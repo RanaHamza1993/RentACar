@@ -109,7 +109,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                  HashMap map = (HashMap) dataSnapshot.child(o.toString()).child(FirebaseAuth.getInstance().getUid()).getValue();
                                  Set setcarKeys=null;
                                  Object[] arrayCarKeys=null;
-                                 if(setcarKeys!=null) {
+                                 if(map!=null) {
                                      setcarKeys = map.keySet();
                                      arrayCarKeys = setcarKeys.toArray();
                                  }
