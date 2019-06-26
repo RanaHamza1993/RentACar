@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.team.rentacar.R;
 import com.team.rentacar.activities.BookingActivity;
 import com.team.rentacar.activities.NavigationActivity;
+import com.team.rentacar.contracts.Communicator;
 import com.team.rentacar.models.VendorsDetailModel;
 import com.team.rentacar.models.VendorsModel;
 import com.team.rentacar.utilities.StartNewActivity;
@@ -22,6 +23,8 @@ import java.util.List;
 public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.BookingsHolder> {
     private Context context;
     int flag=1;
+    private Communicator.IBookings bookingsListener;
+
     private List<VendorsDetailModel> bookingList;
     public BookingsAdapter(Context context, ArrayList<VendorsDetailModel> bookingList,int flag) {
         this.context=context;
@@ -29,6 +32,9 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
         this.flag=flag;
     }
 
+    public void setIBookingListener(Communicator.IBookings bookingsListener){
+        this.bookingsListener=bookingsListener;
+    }
     @NonNull
     @Override
     public BookingsAdapter.BookingsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -86,7 +92,15 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
                 hourlyPrice.setText("Booked by: " + bookingList.get(position).getBookedBy());
                 rentIt.setText("Cancel");
                 rentIt.setOnClickListener(v->{
-                    
+                    if(bookingsListener!=null) {
+                        bookingsListener.cancel(bookingList.get(position).getId(), bookingList.get(position).getVendorName(),
+
+
+                                bookingList.get(position).getUid(),position);
+
+                        bookingList.remove(position);
+                        notifyDataSetChanged();
+                    }
                 });
                 sendCar.setVisibility(View.VISIBLE);
                 sendCar.setOnClickListener(v->{

@@ -9,6 +9,6 @@ public interface Communicator {
         void rentIt(String id);
     }
     interface IBookings{
-        void cancel(String id);
+        void cancel(String id,String vendorName,String userid,int postion);
     }
 }

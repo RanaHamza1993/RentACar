@@ -15,6 +15,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.team.rentacar.R;
@@ -105,7 +106,8 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                         boolean isBooked = dataSnapshot.child(o.toString()).child("isBooked").getValue(Boolean.class);
 
 
-                        arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,isBooked));
+                        arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,isBooked,""));
+               //         vendorsAdapter.notifyDataSetChanged();
 
                     }
                 } catch (Exception e) {
@@ -177,12 +179,19 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                     map.put("booked_by",username);
                     map.put("user_cnic",userCnic);
                     map.put("vendor_name",vendorName);
+                    map.put("uid",FirebaseAuth.getInstance().getUid());
                     Map<String,Object> vendorDetail=new HashMap<String,Object>();
                     vendorDetail.put("isBooked",true);
                     vendorsDetailReference.child(carId).updateChildren(vendorDetail);
-                    bookingReference.child(FirebaseAuth.getInstance().getUid()).child(carId).updateChildren(map);
-                    showSuccessMessage("Congratulation  Mr. " + username + " you have booked this vehicle successfully");
-                    rentDialog.dismiss();
+                    bookingReference.child(FirebaseAuth.getInstance().getUid()).child(carId).updateChildren(map).
+                            addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    showSuccessMessage("Congratulation  Mr. " + username + " you have booked this vehicle successfully");
+                                    rentDialog.dismiss();
+                                }
+                            });
+
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {

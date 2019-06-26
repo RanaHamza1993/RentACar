@@ -17,10 +17,7 @@ import com.team.rentacar.adapters.VendorsAdapter;
 import com.team.rentacar.contracts.Communicator;
 import com.team.rentacar.models.VendorsDetailModel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class BookingActivity extends AppCompatActivity implements Communicator.IBookings {
 
@@ -39,6 +36,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
     String carImage = "";
     String hourlyRate = "";
     String vendorName = "";
+    String uid = "";
     String bookedBy = "";
     private String role;
 
@@ -97,17 +95,25 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                          if (!bookingList.isEmpty())
                              bookingList.clear();
                          HashMap hashMap = (HashMap) dataSnapshot.getValue();
+                         if(hashMap==null)
+                             return;
                          try {
                              Set keys = hashMap.keySet();
                              Object[] array = new String[6];
 
                              array = keys.toArray();
+                             if(array!=null)
                              for (Object o : array) {
                                  //  vendorsDetailReference.child(o.toString())
 
                                  HashMap map = (HashMap) dataSnapshot.child(o.toString()).child(FirebaseAuth.getInstance().getUid()).getValue();
-                                 Set setcarKeys = map.keySet();
-                                 Object[] arrayCarKeys = setcarKeys.toArray();
+                                 Set setcarKeys=null;
+                                 Object[] arrayCarKeys=null;
+                                 if(setcarKeys!=null) {
+                                     setcarKeys = map.keySet();
+                                     arrayCarKeys = setcarKeys.toArray();
+                                 }
+                                 if(arrayCarKeys!=null)
                                  for (Object ob : arrayCarKeys) {
                                      vendorsDetailReference.child(o.toString()).child("vendor_cars").
                                              child(ob.toString()).
@@ -120,9 +126,14 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                                               String carName = dataSnapshot2.child("car_name").getValue(String.class);
                                                               String carAddress = dataSnapshot2.child("car_address").getValue(String.class);
                                                               String carImage = dataSnapshot2.child("car_thumb_image").getValue(String.class);
-                                                              String hourlyRate = dataSnapshot.child(o.toString()).child(FirebaseAuth.getInstance().getUid()).child(ob.toString()).child("rent_price").getValue(String.class);
+
+                                                              try {
+                                                                  hourlyRate = dataSnapshot.child(o.toString()).child(FirebaseAuth.getInstance().getUid()).child(ob.toString()).child("rent_price").getValue(String.class);
+                                                              }catch (Exception e){
+
+                                                              }
                                                               String vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
-                                                              bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,"",true));
+                                                              bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,"",true,""));
                                                               bookingAdapter.notifyDataSetChanged();
 
                                                           }
@@ -172,39 +183,54 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
 
     private void populateadminBookingArray() {
 
-        bookingReference.addValueEventListener
+        bookingReference.addListenerForSingleValueEvent
                 (new ValueEventListener() {
 
                      @Override
                      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                         if (!bookingList.isEmpty())
-                             bookingList.clear();
+                         bookingList.clear();
                          HashMap hashMap = (HashMap) dataSnapshot.getValue();
+                         if(hashMap==null)
+                             return;
                          try {
                              Set keys = hashMap.keySet();
                              Object[] array = keys.toArray();
+                             if(array!=null)
                              for (Object o : array) {
                                  //  vendorsDetailReference.child(o.toString())
 
                                  HashMap map = (HashMap) dataSnapshot.child(o.toString()).getValue();
-                                 Set setcarKeys = map.keySet();
-                                 Object[] arrayCarKeys = setcarKeys.toArray();
-
+                                 Set setcarKeys=null;
+                                 Object[] arrayCarKeys=null;
+                                 if(map!=null)
+                                  setcarKeys = map.keySet();
+                                 if(setcarKeys!=null)
+                                 arrayCarKeys = setcarKeys.toArray();
+                                 if(arrayCarKeys!=null)
                                  for (Object ob : arrayCarKeys) {
 
                                      bookingReference.child(o.toString()).child(ob.toString()).addValueEventListener(new ValueEventListener() {
                                          @Override
                                          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                             bookingList.clear();
                                              HashMap hashMap = (HashMap) dataSnapshot.getValue();
-                                             Set keys = hashMap.keySet();
-                                             Object[] array = keys.toArray();
+                                             Set keys = null;
+                                             Object[] array;
+                                             if(hashMap!=null)
+                                                  keys = hashMap.keySet();
+                                             array=null;
+                                             if(keys!=null)
+                                                 array = keys.toArray();
+                                             if(array!=null)
                                              for (Object obb : array) {
 
                                                  bookingReference.child(o.toString()).child(ob.toString()).child(obb.toString()).addValueEventListener(new ValueEventListener() {
                                                      @Override
                                                      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                                                          bookedBy = dataSnapshot.child("booked_by").getValue(String.class);
                                                          hourlyRate = dataSnapshot.child("rent_price").getValue(String.class);
+                                                         uid = dataSnapshot.child("uid").getValue(String.class);
 
 
                                                      }
@@ -216,8 +242,8 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                                  });
                                                  vendorsDetailReference.child(o.toString()).child("vendor_cars").
                                                          child(obb.toString()).
-                                                         addValueEventListener
-                                                                 (new ValueEventListener() {
+                                                         addListenerForSingleValueEvent(
+                                                                 new ValueEventListener() {
                                                                       @Override
                                                                       public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
 //                        Integer id=dataSnapshot.child(o.toString()).child("id").getValue(Integer.class);
@@ -226,7 +252,10 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                                                           carAddress = dataSnapshot2.child("car_address").getValue(String.class);
                                                                           carImage = dataSnapshot2.child("car_thumb_image").getValue(String.class);
                                                                           vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
-                                                                          bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy,true));
+
+                                                                          bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy,true,uid));
+
+                                                                          bookingAdapter.setIBookingListener(BookingActivity.this);
                                                                           bookingAdapter.notifyDataSetChanged();
                                                                       }
 
@@ -291,7 +320,28 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
     }
 
     @Override
-    public void cancel(String id) {
+    public void cancel(String id,String vendorName,String uid,int position) {
+
+
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("isBooked",false);
+
+        vendorsDetailReference.child(vendorName).child("vendor_cars").child(id).updateChildren(map);
+        bookingReference.child(vendorName).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+           dataSnapshot.child(id).getRef().removeValue();
+           bookingList.clear();
+         //  bookingList.remove(position);
+           bookingAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 }
