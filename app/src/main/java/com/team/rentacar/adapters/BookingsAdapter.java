@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.team.rentacar.R;
 import com.team.rentacar.activities.BookingActivity;
+import com.team.rentacar.activities.NavigationActivity;
 import com.team.rentacar.models.VendorsDetailModel;
 import com.team.rentacar.models.VendorsModel;
+import com.team.rentacar.utilities.StartNewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,10 +75,17 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             carName.setText(bookingList.get(position).getCarName());
             vendorName.setText(bookingList.get(position).getVendorName());
             vendorAddress.setText(bookingList.get(position).getVendorAddress());
-            if(flag==1)
-            hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
-            else
-                hourlyPrice.setText("Booked by: "+bookingList.get(position).getBookedBy());
+            if(flag==1) {
+                hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
+
+            }
+            else {
+                hourlyPrice.setText("Booked by: " + bookingList.get(position).getBookedBy());
+                itemView.setOnClickListener(v->{
+                    new StartNewActivity<NavigationActivity>(context,NavigationActivity.class);
+                });
+            }
+
             rentIt.setVisibility(View.GONE);
 
         }

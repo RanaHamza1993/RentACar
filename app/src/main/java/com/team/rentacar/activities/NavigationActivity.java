@@ -119,7 +119,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         Point originPoint;
         if(location!=null) {
             originPoint = Point.fromLngLat(
-                    74.2419427,31.4645789);
+                    location.getLongitude(),location.getLatitude());
 
             GeoJsonSource source = mapboxMap.getStyle().getSourceAs("destination-source-id");
 

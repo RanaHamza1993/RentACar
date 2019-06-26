@@ -48,9 +48,9 @@ public class BookingActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.booking_toolbar);
         setSupportActionBar(toolbar);
         SharedPreferences sharedpreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-        role=sharedpreferences.getString("role","user");
-        if(role.equals("user"))
-        getSupportActionBar().setTitle("Your Bookings");
+        role = sharedpreferences.getString("role", "user");
+        if (role.equals("user"))
+            getSupportActionBar().setTitle("Your Bookings");
         else
             getSupportActionBar().setTitle("Bookings");
         extra = getIntent().getIntExtra("extra", 1);
@@ -76,10 +76,10 @@ public class BookingActivity extends AppCompatActivity {
             populateUserBookingArray();
         else if (extra == 2)
             populateadminBookingArray();
-        if(role.equals("user"))
-        bookingAdapter = new BookingsAdapter(BookingActivity.this, bookingList,1);
+        if (role.equals("user"))
+            bookingAdapter = new BookingsAdapter(BookingActivity.this, bookingList, 1);
         else
-            bookingAdapter = new BookingsAdapter(BookingActivity.this, bookingList,2);
+            bookingAdapter = new BookingsAdapter(BookingActivity.this, bookingList, 2);
         layoutManager = new LinearLayoutManager(BookingActivity.this, RecyclerView.VERTICAL, false);
         bookingRecycler.setLayoutManager(layoutManager);
         bookingRecycler.setAdapter(bookingAdapter);
@@ -225,7 +225,7 @@ public class BookingActivity extends AppCompatActivity {
                                                                           carAddress = dataSnapshot2.child("car_address").getValue(String.class);
                                                                           carImage = dataSnapshot2.child("car_thumb_image").getValue(String.class);
                                                                           vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
-                                                                          bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,bookedBy));
+                                                                          bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy));
                                                                           bookingAdapter.notifyDataSetChanged();
                                                                       }
 

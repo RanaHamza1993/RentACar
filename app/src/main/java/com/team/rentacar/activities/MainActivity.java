@@ -135,7 +135,7 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
         }else if(id==4){
             new StartNewActivity<ChangePassword>(MainActivity.this,ChangePassword.class);
         }else if(id==5){
-            new StartNewActivity<NavigationActivity>(MainActivity.this,NavigationActivity.class);
+            new StartNewActivity<TermsOfUse>(MainActivity.this,TermsOfUse.class);
         }else if(id==8){
             new StartNewActivity<PostCarsOfVendors>(MainActivity.this,PostCarsOfVendors.class);
         }else if(id==9) {
