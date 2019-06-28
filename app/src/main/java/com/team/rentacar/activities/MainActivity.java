@@ -118,6 +118,7 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
     }
 
     private void populateAdminArray() {
+        adminArrayList.add(new MainPageModel(10,R.drawable.profile, "Profile Activity"));
         adminArrayList.add(new MainPageModel(6,R.drawable.discount, "Discount Activity"));
         adminArrayList.add(new MainPageModel(7,R.drawable.report, "Generate Report Activity"));
         adminArrayList.add(new MainPageModel(8,R.drawable.vendors, "Vendors"));
@@ -126,7 +127,7 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
 
     @Override
     public void navigateToOtherActivities(int id,String vendor) {
-        if(id==1){
+        if(id==1||id==10){
             new StartNewActivity<ProfileActivity>(MainActivity.this,ProfileActivity.class);
         }else if(id==2){
             new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class,1);

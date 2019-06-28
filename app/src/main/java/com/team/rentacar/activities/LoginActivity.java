@@ -135,16 +135,16 @@ public class LoginActivity extends BaseActivity {
                 });
             }else{
                 adminReference= FirebaseDatabase.getInstance().getReference().child("Admin");
-                adminReference.addValueEventListener(new ValueEventListener() {
+                adminReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(!email.getText().toString().equals(dataSnapshot.child("email").getValue(String.class))){
-                            showErrorMessage("Invalid credentials");
+                            showErrorMessage("Invalid login credentials");
                             dismissDialog();
                             return;
                         }else if(!password.getText().toString().equals(dataSnapshot.child("password").getValue(String.class))) {
                             dismissDialog();
-                            showErrorMessage("Invalid credentials");
+                            showErrorMessage("Invalid login credentials");
                             return;
                         }
                         else {

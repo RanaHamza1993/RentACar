@@ -1,7 +1,9 @@
 package com.team.rentacar.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -42,6 +44,7 @@ public class ProfileActivity extends BaseActivity {
     private static final int PermissionRequestCode = 2;
     private Toolbar toolbar;
     private DatabaseReference userDataReference;
+    private DatabaseReference adminDataReference;
     private FirebaseAuth mAuth;
     private StorageReference databasestorage;
     private StorageReference thumbImagetorage;
@@ -50,22 +53,50 @@ public class ProfileActivity extends BaseActivity {
     Bitmap thumb_bitmap;
     CircularImageView userImage;
     EditText userName;
+    EditText adminName;
+    EditText adminEmail;
+    EditText adminPassword;
+    EditText adminNewPassword;
     EditText userCnic;
     EditText userPhoneNumber;
     EditText userAddress;
     TextView updateData;
-
+    private String role;
+    private String currentAdminPassowrd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        SharedPreferences sharedpreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+        role = sharedpreferences.getString("role", "user");
+        if(role.equals("user")) {
+            setContentView(R.layout.activity_profile);
+
+            userImage = findViewById(R.id.user_profile);
+            userCnic = findViewById(R.id.cnic);
+            userName = findViewById(R.id.name);
+            userPhoneNumber = findViewById(R.id.phone_no);
+            userAddress = findViewById(R.id.address);
+            updateData=findViewById(R.id.update);
+            uid = mAuth.getCurrentUser().getUid();
+            userDataReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+            userDataReference.keepSynced(true);
+        }
+        else {
+            setContentView(R.layout.layout_admin_profile);
+            adminName=findViewById(R.id.admin_name);
+            adminEmail=findViewById(R.id.admin_email);
+            adminPassword=findViewById(R.id.admin_pwd);
+            adminNewPassword=findViewById(R.id.admin_new_pwd);
+            userImage = findViewById(R.id.user_profile);
+            adminDataReference = FirebaseDatabase.getInstance().getReference().child("Admin");
+            updateData=findViewById(R.id.update);
+            databasestorage = FirebaseStorage.getInstance().getReference().child("Profile_Images");
+            thumbImagetorage = FirebaseStorage.getInstance().getReference().child("thumb_Images");
+            databasestorage = FirebaseStorage.getInstance().getReference().child("admin_Image");
+            thumbImagetorage = FirebaseStorage.getInstance().getReference().child("admin_thumb_Image");
+        }
         toolbar = findViewById(R.id.profile_toolbar);
-        userImage = findViewById(R.id.user_profile);
-        userCnic = findViewById(R.id.cnic);
-        userName = findViewById(R.id.name);
-        userPhoneNumber = findViewById(R.id.phone_no);
-        userAddress = findViewById(R.id.address);
-        updateData=findViewById(R.id.update);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,39 +108,111 @@ public class ProfileActivity extends BaseActivity {
             }
         });
         mAuth = FirebaseAuth.getInstance();
-        uid = mAuth.getCurrentUser().getUid();
-        userDataReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
-        databasestorage = FirebaseStorage.getInstance().getReference().child("Profile_Images");
-        thumbImagetorage = FirebaseStorage.getInstance().getReference().child("thumb_Images");
-        userDataReference.keepSynced(true);
-        userDataReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                userName.setText(dataSnapshot.child("user_name").getValue(String.class));
-                userCnic.setText(dataSnapshot.child("user_cnic").getValue(String.class));
-                userPhoneNumber.setText(dataSnapshot.child("user_phone").getValue(String.class));
-                userAddress.setText(dataSnapshot.child("user_address").getValue(String.class));
-                String img = dataSnapshot.child("user_image").getValue().toString();
-                if (img.equals("default_profile"))
-                    Glide.with(getApplicationContext()).load(R.drawable.cplaceholder).placeholder(R.drawable.cplaceholder).into(userImage);
-                else
-                    Glide.with(getApplicationContext()).load(img).
-                            placeholder(R.drawable.cplaceholder).into(userImage);
 
 
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+
+        if(role.equals("user")) {
+            userDataReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    userName.setText(dataSnapshot.child("user_name").getValue(String.class));
+                    userCnic.setText(dataSnapshot.child("user_cnic").getValue(String.class));
+                    userPhoneNumber.setText(dataSnapshot.child("user_phone").getValue(String.class));
+                    userAddress.setText(dataSnapshot.child("user_address").getValue(String.class));
+                    String img = dataSnapshot.child("user_image").getValue().toString();
+                    if (img.equals("default_profile"))
+                        Glide.with(getApplicationContext()).load(R.drawable.cplaceholder).placeholder(R.drawable.cplaceholder).into(userImage);
+                    else
+                        Glide.with(getApplicationContext()).load(img).
+                                placeholder(R.drawable.cplaceholder).into(userImage);
+
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }else if(role.equals("admin")){
+            adminDataReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    currentAdminPassowrd=dataSnapshot.child("password").getValue(String.class);
+                    adminName.setText(dataSnapshot.child("name").getValue(String.class));
+                    adminEmail.setText(dataSnapshot.child("email").getValue(String.class));
+                    String img = dataSnapshot.child("admin_thumb_image").getValue().toString();
+                    if (img.equals("default_profile"))
+                        Glide.with(getApplicationContext()).load(R.drawable.cplaceholder).placeholder(R.drawable.cplaceholder).into(userImage);
+                    else
+                        Glide.with(getApplicationContext()).load(img).
+                                placeholder(R.drawable.cplaceholder).into(userImage);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
         updateData.setOnClickListener(v->{
+            if(role.equals("user"))
             updateProfile();
+            else
+                updateAdminProfile();
         });
         userImage.setOnClickListener(v->{
             chooseImage();
         });
+    }
+
+    private void updateAdminProfile() {
+
+        String name = adminName.getText().toString();
+        String email = adminEmail.getText().toString();
+        String password = adminPassword.getText().toString();
+        String newPassword = adminNewPassword.getText().toString();
+
+        if (name.isEmpty()) {
+            showErrorMessage("Please enter valid name");
+            return;
+        }
+        if (email.isEmpty()) {
+            showErrorMessage("Please enter valid email");
+            return;
+        }
+        if (password.isEmpty()) {
+            showErrorMessage("Please enter current password");
+            return;
+        }
+        if (newPassword.isEmpty()) {
+            showErrorMessage("Please enter confirm current password");
+            return;
+        }if (!password.equals(currentAdminPassowrd)) {
+            showErrorMessage("You enter wrong current password please try again");
+
+        }else {
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", adminName.getText().toString());
+            map.put("password", adminNewPassword.getText().toString());
+            map.put("email", adminEmail.getText().toString());
+            adminDataReference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful())
+                        showSuccessMessage("Data updated successfully");
+                    else
+                        showErrorMessage("Data not updated successfully");
+                }
+
+                ;
+            });
+        }
     }
 
 
@@ -152,43 +255,43 @@ public class ProfileActivity extends BaseActivity {
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
                 final byte[] thumb_byte = byteArrayOutputStream.toByteArray();
+                if(role.equals("user")) {
+                    StorageReference filePath = databasestorage.child(uid + ".jpg");
+                    final StorageReference thumbFilePath = thumbImagetorage.child(uid + ".jpg");
+                    filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
 
-                StorageReference filePath = databasestorage.child(uid + ".jpg");
-                final StorageReference thumbFilePath = thumbImagetorage.child(uid + ".jpg");
-                filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()) {
+                                //showSuccessMessage("Image uploaded Successfully");
+                                final Task<Uri> uriTask = task.getResult().getStorage().getDownloadUrl();
+                                UploadTask uploadTask = thumbFilePath.putBytes(thumb_byte);
+                                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
 
-                            //showSuccessMessage("Image uploaded Successfully");
-                            final Task<Uri> uriTask = task.getResult().getStorage().getDownloadUrl();
-                            UploadTask uploadTask = thumbFilePath.putBytes(thumb_byte);
-                            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
+                                        Task<Uri> thumb_url = thumb_task.getResult().getStorage().getDownloadUrl();
+                                        thumb_url.addOnSuccessListener(new OnSuccessListener<Uri>() {
 
-                                    Task<Uri> thumb_url = thumb_task.getResult().getStorage().getDownloadUrl();
-                                    thumb_url.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
 
-                                        @Override
-                                        public void onSuccess(Uri uri) {
+                                                userMap.put("user_image", uri.toString());
+                                                uriTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                    @Override
+                                                    public void onSuccess(Uri uri) {
+                                                        userMap.put("user_thumb_image", uri.toString());
+                                                        userDataReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
 
-                                            userMap.put("user_image", uri.toString());
-                                            uriTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                @Override
-                                                public void onSuccess(Uri uri) {
-                                                    userMap.put("user_thumb_image", uri.toString());
-                                                    userDataReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                // showSuccessMessage("Image updated successfully");
+                                                                dismissDialog();
+                                                            }
 
-                                                            // showSuccessMessage("Image updated successfully");
-                                                            dismissDialog();
-                                                        }
-
-                                                    });
-                                                }
-                                            });
+                                                        });
+                                                    }
+                                                });
 
 //                                            userDataReference.child("user_thumb_image").setValue(uri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
 //                                                @Override
@@ -196,19 +299,80 @@ public class ProfileActivity extends BaseActivity {
 //                                                    showSuccessMessage("thumb Image Uploaded Successfully");
 //                                                }
 //                                            });
-                                        }
-                                    });
-                                }
-                            });
+                                            }
+                                        });
+                                    }
+                                });
 
 
-                        } else {
-                            dismissDialog();
+                            } else {
+                                dismissDialog();
 
-                            showErrorMessage("Error occured while uploading");
+                                showErrorMessage("Error occured while uploading");
+                            }
                         }
-                    }
-                });
+                    });
+                }else{
+
+                    StorageReference filePath = databasestorage.child("admin" + ".jpg");
+                    final StorageReference thumbFilePath = thumbImagetorage.child("admin" + ".jpg");
+                    filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
+
+                                //showSuccessMessage("Image uploaded Successfully");
+                                final Task<Uri> uriTask = task.getResult().getStorage().getDownloadUrl();
+                                UploadTask uploadTask = thumbFilePath.putBytes(thumb_byte);
+                                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
+
+                                        Task<Uri> thumb_url = thumb_task.getResult().getStorage().getDownloadUrl();
+                                        thumb_url.addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                try {
+                                                    HashMap<String, Object> map = new HashMap<String, Object>();
+                                                    map.put("admin_image", uri.toString());
+                                                    uriTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                        @Override
+                                                        public void onSuccess(Uri uri) {
+                                                            map.put("admin_thumb_image", uri.toString());
+                                                            adminDataReference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+
+                                                                    // showSuccessMessage("Image updated successfully");
+                                                                    dismissDialog();
+                                                                }
+
+                                                            });
+                                                        }
+                                                    });
+                                                }catch (Exception e){}
+//                                            userDataReference.child("user_thumb_image").setValue(uri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                @Override
+//                                                public void onComplete(@NonNull Task<Void> task) {
+//                                                    showSuccessMessage("thumb Image Uploaded Successfully");
+//                                                }
+//                                            });
+                                            }
+                                        });
+                                    }
+                                });
+
+
+                            } else {
+                                dismissDialog();
+
+                                showErrorMessage("Error occured while uploading");
+                            }
+                        }
+                    });
+                }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
@@ -280,17 +444,13 @@ public class ProfileActivity extends BaseActivity {
             map.put("user_cnic", userCnic.getText().toString());
             map.put("user_name", userName.getText().toString());
             map.put("user_phone", userPhoneNumber.getText().toString());
-            userDataReference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            userDataReference.updateChildren(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful())
-                        showSuccessMessage("Data updated successfully");
-                    else
-                        showErrorMessage("Data not updated successfully");
-                }
+                public void onSuccess(Void aVoid) {
+                    showSuccessMessage("Data updated successfully");
 
-                ;
-            });
+                }
+            }) ;
         }
     }
 }
