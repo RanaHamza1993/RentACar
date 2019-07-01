@@ -77,7 +77,7 @@ public class ProfileActivity extends BaseActivity {
             userPhoneNumber = findViewById(R.id.phone_no);
             userAddress = findViewById(R.id.address);
             updateData=findViewById(R.id.update);
-            uid = mAuth.getCurrentUser().getUid();
+            uid = mAuth.getInstance().getCurrentUser().getUid();
             userDataReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
             userDataReference.keepSynced(true);
         }

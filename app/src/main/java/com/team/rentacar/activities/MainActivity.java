@@ -119,10 +119,10 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
 
     private void populateAdminArray() {
         adminArrayList.add(new MainPageModel(10,R.drawable.profile, "Profile Activity"));
-        adminArrayList.add(new MainPageModel(6,R.drawable.discount, "Discount Activity"));
-        adminArrayList.add(new MainPageModel(7,R.drawable.report, "Generate Report Activity"));
-        adminArrayList.add(new MainPageModel(8,R.drawable.vendors, "Vendors"));
-        adminArrayList.add(new MainPageModel(9,R.drawable.bookings, "Bookings"));
+        //adminArrayList.add(new MainPageModel(6,R.drawable.discount, "Discount Activity"));
+       // adminArrayList.add(new MainPageModel(7,R.drawable.report, "Generate Report Activity"));
+        adminArrayList.add(new MainPageModel(8,R.drawable.vendors, "Post Cars"));
+        adminArrayList.add(new MainPageModel(9,R.drawable.bookings, "Check Bookings"));
     }
 
     @Override
