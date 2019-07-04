@@ -17,6 +17,7 @@ import com.team.rentacar.R;
 import com.team.rentacar.adapters.VendorsAdapter;
 import com.team.rentacar.contracts.Communicator;
 import com.team.rentacar.models.VendorsModel;
+import com.team.rentacar.utilities.StartNewActivity;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -31,6 +32,7 @@ public class VendorsActivity extends AppCompatActivity implements Communicator.h
     private VendorsAdapter vendorsAdapter;
     ArrayList<VendorsModel> arrayList = new ArrayList<>();
     DatabaseReference vendorsReference;
+    int flag=1;
     int[] drawables=new int[]{R.drawable.toyota_cov,R.drawable.honda_cov,R.drawable.suzuki_cov,R.drawable.jap_cov,R.drawable.bmw_cov,R.drawable.others_cov};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class VendorsActivity extends AppCompatActivity implements Communicator.h
         toolbar = findViewById(R.id.vendors_toolbar);
         vendorsRecycler=findViewById(R.id.vendors_recycler);
         setSupportActionBar(toolbar);
+        flag=getIntent().getIntExtra("extra",1);
         getSupportActionBar().setTitle("Vendors");
         vendorsReference=FirebaseDatabase.getInstance().getReference().child("Vendors");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -111,7 +114,10 @@ public class VendorsActivity extends AppCompatActivity implements Communicator.h
             Intent intent = new Intent(VendorsActivity.this, VendorsDetailActivity.class);
             intent.putExtra("vendor", vendor);
             startActivity(intent);
-        }
+        }else{
+            Intent intent = new Intent(VendorsActivity.this, PostDiscounts.class);
+            intent.putExtra("vendor", vendor);
+            startActivity(intent);        }
     }
 
     @Override

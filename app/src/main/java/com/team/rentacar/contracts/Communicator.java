@@ -11,4 +11,7 @@ public interface Communicator {
     interface IBookings{
         void cancel(String id,String vendorName,String userid,int postion);
     }
+    interface IDiscount{
+        void postDiscount(String id,String vendor);
+    }
 }

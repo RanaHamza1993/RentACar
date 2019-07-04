@@ -25,12 +25,17 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
     private Context context;
     int flag=1;
     private Communicator.IBookings bookingsListener;
+    private Communicator.IDiscount discountListener;
 
     private List<VendorsDetailModel> bookingList;
     public BookingsAdapter(Context context, ArrayList<VendorsDetailModel> bookingList,int flag) {
         this.context=context;
         this.bookingList=bookingList;
         this.flag=flag;
+    }
+
+    public void setDiscountListener(Communicator.IDiscount discountListener) {
+        this.discountListener = discountListener;
     }
 
     public void setIBookingListener(Communicator.IBookings bookingsListener){
@@ -123,6 +128,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
 //                    hourlyPrice.setText(Integer.parseInt(bookingList.get(position).getHourlyPrice()));
 //                    discount.setPaintFlags(discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 //                }
+
                 rentIt.setOnClickListener(v->{
                     if(bookingsListener!=null) {
                         bookingsListener.cancel(bookingList.get(position).getId(), bookingList.get(position).getVendorName(),
@@ -137,7 +143,32 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
 
 //                driverName.setText(bookingList.get(position).getDriverName());
 //                driverNumber.setText(bookingList.get(position).getDriverNumber());
-                sendCar.setVisibility(View.VISIBLE);
+                if(flag==3) {
+                    sendCar.setVisibility(View.GONE);
+                    rentIt.setText("Post Discount");
+                    hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
+                    rentIt.setOnClickListener(v->{
+                        if(discountListener!=null) {
+
+                            discountListener.postDiscount(bookingList.get(position).getId(),bookingList.get(position).getVendorName());
+                        }
+                    });
+                }
+                else {
+                    sendCar.setVisibility(View.VISIBLE);
+                    rentIt.setOnClickListener(v->{
+                        if(bookingsListener!=null) {
+                            bookingsListener.cancel(bookingList.get(position).getId(), bookingList.get(position).getVendorName(),
+
+
+                                    bookingList.get(position).getUid(),position);
+
+                            bookingList.remove(position);
+                            notifyDataSetChanged();
+                        }
+                    });
+
+                }
                 sendCar.setOnClickListener(v->{
                     new StartNewActivity<NavigationActivity>(context,NavigationActivity.class);
                 });

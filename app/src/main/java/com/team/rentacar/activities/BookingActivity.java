@@ -95,63 +95,63 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                          if (!bookingList.isEmpty())
                              bookingList.clear();
                          HashMap hashMap = (HashMap) dataSnapshot.getValue();
-                         if(hashMap==null)
+                         if (hashMap == null)
                              return;
                          try {
                              Set keys = hashMap.keySet();
                              Object[] array = new String[6];
 
                              array = keys.toArray();
-                             if(array!=null)
-                             for (Object o : array) {
-                                 //  vendorsDetailReference.child(o.toString())
+                             if (array != null)
+                                 for (Object o : array) {
+                                     //  vendorsDetailReference.child(o.toString())
 
-                                 HashMap map = (HashMap) dataSnapshot.child(o.toString()).child(FirebaseAuth.getInstance().getUid()).getValue();
-                                 Set setcarKeys=null;
-                                 Object[] arrayCarKeys=null;
-                                 if(map!=null) {
-                                     setcarKeys = map.keySet();
-                                     arrayCarKeys = setcarKeys.toArray();
-                                 }
-                                 if(arrayCarKeys!=null)
-                                 for (Object ob : arrayCarKeys) {
-                                     vendorsDetailReference.child(o.toString()).child("vendor_cars").
-                                             child(ob.toString()).
-                                             addValueEventListener
-                                                     (new ValueEventListener() {
-                                                          @Override
-                                                          public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                                     HashMap map = (HashMap) dataSnapshot.child(o.toString()).child(FirebaseAuth.getInstance().getUid()).getValue();
+                                     Set setcarKeys = null;
+                                     Object[] arrayCarKeys = null;
+                                     if (map != null) {
+                                         setcarKeys = map.keySet();
+                                         arrayCarKeys = setcarKeys.toArray();
+                                     }
+                                     if (arrayCarKeys != null)
+                                         for (Object ob : arrayCarKeys) {
+                                             vendorsDetailReference.child(o.toString()).child("vendor_cars").
+                                                     child(ob.toString()).
+                                                     addValueEventListener
+                                                             (new ValueEventListener() {
+                                                                  @Override
+                                                                  public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
 //                        Integer id=dataSnapshot.child(o.toString()).child("id").getValue(Integer.class);
-                                                              String id = dataSnapshot2.child("id").getValue(String.class);
-                                                              String carName = dataSnapshot2.child("car_name").getValue(String.class);
-                                                              String carAddress = dataSnapshot2.child("car_address").getValue(String.class);
-                                                              String carImage = dataSnapshot2.child("car_thumb_image").getValue(String.class);
-                                                              String driverName = dataSnapshot2.child("driver_name").getValue(String.class);
-                                                              String driverNumber = dataSnapshot2.child("driver_number").getValue(String.class);
-                                                              String discount = dataSnapshot2.child("discount").getValue(String.class);
+                                                                      String id = dataSnapshot2.child("id").getValue(String.class);
+                                                                      String carName = dataSnapshot2.child("car_name").getValue(String.class);
+                                                                      String carAddress = dataSnapshot2.child("car_address").getValue(String.class);
+                                                                      String carImage = dataSnapshot2.child("car_thumb_image").getValue(String.class);
+                                                                      String driverName = dataSnapshot2.child("driver_name").getValue(String.class);
+                                                                      String driverNumber = dataSnapshot2.child("driver_number").getValue(String.class);
+                                                                      String discount = dataSnapshot2.child("discount").getValue(String.class);
 
-                                                              try {
-                                                                  hourlyRate = dataSnapshot.child(o.toString()).child(FirebaseAuth.getInstance().getUid()).child(ob.toString()).child("rent_price").getValue(String.class);
-                                                              }catch (Exception e){
+                                                                      try {
+                                                                          hourlyRate = dataSnapshot.child(o.toString()).child(FirebaseAuth.getInstance().getUid()).child(ob.toString()).child("rent_price").getValue(String.class);
+                                                                      } catch (Exception e) {
 
+                                                                      }
+                                                                      String vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
+                                                                      bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, "", true, "", driverName, driverNumber, Integer.parseInt(discount)));
+                                                                      bookingAdapter.notifyDataSetChanged();
+
+                                                                  }
+
+                                                                  @Override
+                                                                  public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                                  }
                                                               }
-                                                              String vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
-                                                              bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,"",true,"",driverName,driverNumber,Integer.parseInt(discount)));
-                                                              bookingAdapter.notifyDataSetChanged();
-
-                                                          }
-
-                                                          @Override
-                                                          public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                                          }
-                                                      }
 
 
-                                                     );
-                                 }
+                                                             );
+                                         }
 
-                                 //                        Integer id=dataSnapshot.child(o.toString()).child("id").getValue(Integer.class);
+                                     //                        Integer id=dataSnapshot.child(o.toString()).child("id").getValue(Integer.class);
 
 
 //
@@ -166,7 +166,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
 //                        bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate));
 //
 
-                             }
+                                 }
                          } catch (Exception e) {
 
                          }
@@ -193,86 +193,86 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                          bookingList.clear();
                          HashMap hashMap = (HashMap) dataSnapshot.getValue();
-                         if(hashMap==null)
+                         if (hashMap == null)
                              return;
                          try {
                              Set keys = hashMap.keySet();
                              Object[] array = keys.toArray();
-                             if(array!=null)
-                             for (Object o : array) {
-                                 //  vendorsDetailReference.child(o.toString())
+                             if (array != null)
+                                 for (Object o : array) {
+                                     //  vendorsDetailReference.child(o.toString())
 
-                                 HashMap map = (HashMap) dataSnapshot.child(o.toString()).getValue();
-                                 Set setcarKeys=null;
-                                 Object[] arrayCarKeys=null;
-                                 if(map!=null)
-                                  setcarKeys = map.keySet();
-                                 if(setcarKeys!=null)
-                                 arrayCarKeys = setcarKeys.toArray();
-                                 if(arrayCarKeys!=null)
-                                 for (Object ob : arrayCarKeys) {
+                                     HashMap map = (HashMap) dataSnapshot.child(o.toString()).getValue();
+                                     Set setcarKeys = null;
+                                     Object[] arrayCarKeys = null;
+                                     if (map != null)
+                                         setcarKeys = map.keySet();
+                                     if (setcarKeys != null)
+                                         arrayCarKeys = setcarKeys.toArray();
+                                     if (arrayCarKeys != null)
+                                         for (Object ob : arrayCarKeys) {
 
-                                     bookingReference.child(o.toString()).child(ob.toString()).addValueEventListener(new ValueEventListener() {
-                                         @Override
-                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                             bookingList.clear();
-                                             HashMap hashMap = (HashMap) dataSnapshot.getValue();
-                                             Set keys = null;
-                                             Object[] array;
-                                             if(hashMap!=null)
-                                                  keys = hashMap.keySet();
-                                             array=null;
-                                             if(keys!=null)
-                                                 array = keys.toArray();
-                                             if(array!=null)
-                                             for (Object obb : array) {
+                                             bookingReference.child(o.toString()).child(ob.toString()).addValueEventListener(new ValueEventListener() {
+                                                 @Override
+                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                     bookingList.clear();
+                                                     HashMap hashMap = (HashMap) dataSnapshot.getValue();
+                                                     Set keys = null;
+                                                     Object[] array;
+                                                     if (hashMap != null)
+                                                         keys = hashMap.keySet();
+                                                     array = null;
+                                                     if (keys != null)
+                                                         array = keys.toArray();
+                                                     if (array != null)
+                                                         for (Object obb : array) {
 
-                                                 bookingReference.child(o.toString()).child(ob.toString()).child(obb.toString()).addValueEventListener(new ValueEventListener() {
-                                                     @Override
-                                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                             bookingReference.child(o.toString()).child(ob.toString()).child(obb.toString()).addValueEventListener(new ValueEventListener() {
+                                                                 @Override
+                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                                         bookedBy = dataSnapshot.child("booked_by").getValue(String.class);
-                                                         hourlyRate = dataSnapshot.child("rent_price").getValue(String.class);
-                                                         uid = dataSnapshot.child("uid").getValue(String.class);
+                                                                     bookedBy = dataSnapshot.child("booked_by").getValue(String.class);
+                                                                     hourlyRate = dataSnapshot.child("rent_price").getValue(String.class);
+                                                                     uid = dataSnapshot.child("uid").getValue(String.class);
 
 
-                                                     }
+                                                                 }
 
-                                                     @Override
-                                                     public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                                 @Override
+                                                                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                                     }
-                                                 });
-                                                 vendorsDetailReference.child(o.toString()).child("vendor_cars").
-                                                         child(obb.toString()).
-                                                         addListenerForSingleValueEvent(
-                                                                 new ValueEventListener() {
-                                                                      @Override
-                                                                      public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                                                                 }
+                                                             });
+                                                             vendorsDetailReference.child(o.toString()).child("vendor_cars").
+                                                                     child(obb.toString()).
+                                                                     addListenerForSingleValueEvent(
+                                                                             new ValueEventListener() {
+                                                                                 @Override
+                                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
 //                        Integer id=dataSnapshot.child(o.toString()).child("id").getValue(Integer.class);
-                                                                          id = dataSnapshot2.child("id").getValue(String.class);
-                                                                          carName = dataSnapshot2.child("car_name").getValue(String.class);
-                                                                          carAddress = dataSnapshot2.child("car_address").getValue(String.class);
-                                                                          carImage = dataSnapshot2.child("car_thumb_image").getValue(String.class);
-                                                                          vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
-                                                                          String driverName = dataSnapshot2.child("driver_name").getValue(String.class);
-                                                                          String driverNumber = dataSnapshot2.child("driver_number").getValue(String.class);
-                                                                          String discount = dataSnapshot2.child("discount").getValue(String.class);
+                                                                                     id = dataSnapshot2.child("id").getValue(String.class);
+                                                                                     carName = dataSnapshot2.child("car_name").getValue(String.class);
+                                                                                     carAddress = dataSnapshot2.child("car_address").getValue(String.class);
+                                                                                     carImage = dataSnapshot2.child("car_thumb_image").getValue(String.class);
+                                                                                     vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
+                                                                                     String driverName = dataSnapshot2.child("driver_name").getValue(String.class);
+                                                                                     String driverNumber = dataSnapshot2.child("driver_number").getValue(String.class);
+                                                                                     String discount = dataSnapshot2.child("discount").getValue(String.class);
 
-                                                                          bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,bookedBy,true,uid,driverName,driverNumber,Integer.parseInt(discount)));
+                                                                                     bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy, true, uid, driverName, driverNumber, Integer.parseInt(discount)));
 
-                                                                          bookingAdapter.setIBookingListener(BookingActivity.this);
-                                                                          bookingAdapter.notifyDataSetChanged();
-                                                                      }
+                                                                                     bookingAdapter.setIBookingListener(BookingActivity.this);
+                                                                                     bookingAdapter.notifyDataSetChanged();
+                                                                                 }
 
-                                                                      @Override
-                                                                      public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                                                 @Override
+                                                                                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                                                      }
-                                                                  }
+                                                                                 }
+                                                                             }
 
 
-                                                                 );
+                                                                     );
 
 
 //                                                 String carAddress = dataSnapshot.child("car_address").getValue(String.class);
@@ -281,19 +281,19 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
 //                                                 String vendorName = dataSnapshot.child("vendor_name").getValue(String.class);
 //                                                 bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate));
 //                                                 bookingAdapter.notifyDataSetChanged();
-                                             }
+                                                         }
 
 
+                                                 }
+
+                                                 @Override
+                                                 public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                 }
+                                             });
                                          }
 
-                                         @Override
-                                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                         }
-                                     });
-                                 }
-
-                                 //                        Integer id=dataSnapshot.child(o.toString()).child("id").getValue(Integer.class);
+                                     //                        Integer id=dataSnapshot.child(o.toString()).child("id").getValue(Integer.class);
 
 
 //
@@ -308,7 +308,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
 //                        bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate));
 //
 
-                             }
+                                 }
                          } catch (Exception e) {
 
                          }
@@ -326,20 +326,20 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
     }
 
     @Override
-    public void cancel(String id,String vendorName,String uid,int position) {
+    public void cancel(String id, String vendorName, String uid, int position) {
 
 
-        Map<String,Object> map=new HashMap<String,Object>();
-        map.put("isBooked",false);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("isBooked", false);
 
         vendorsDetailReference.child(vendorName).child("vendor_cars").child(id).updateChildren(map);
         bookingReference.child(vendorName).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-           dataSnapshot.child(id).getRef().removeValue();
-           bookingList.clear();
-         //  bookingList.remove(position);
-           bookingAdapter.notifyDataSetChanged();
+                dataSnapshot.child(id).getRef().removeValue();
+                bookingList.clear();
+                //  bookingList.remove(position);
+                bookingAdapter.notifyDataSetChanged();
             }
 
             @Override

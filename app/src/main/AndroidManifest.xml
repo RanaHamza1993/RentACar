@@ -18,6 +18,8 @@
             android:roundIcon="@mipmap/ic_launcher"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".activities.PostDiscounts">
+        </activity>
         <activity android:name=".activities.PostCarsOfVendors">
         </activity>
         <activity android:name=".activities.NavigationActivity">
@@ -53,7 +55,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
                 android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
                 android:theme="@style/Base.Theme.AppCompat"/>

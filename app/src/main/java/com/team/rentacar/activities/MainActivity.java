@@ -119,7 +119,7 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
 
     private void populateAdminArray() {
         adminArrayList.add(new MainPageModel(10,R.drawable.profile, "Profile Activity"));
-        //adminArrayList.add(new MainPageModel(6,R.drawable.discount, "Discount Activity"));
+        adminArrayList.add(new MainPageModel(6,R.drawable.discount, "Post Discounts"));
        // adminArrayList.add(new MainPageModel(7,R.drawable.report, "Generate Report Activity"));
         adminArrayList.add(new MainPageModel(8,R.drawable.vendors, "Post Cars"));
         adminArrayList.add(new MainPageModel(9,R.drawable.bookings, "Check Bookings"));
@@ -132,11 +132,13 @@ public class MainActivity extends BaseActivity implements Communicator.homeNavig
         }else if(id==2){
             new StartNewActivity<BookingActivity>(MainActivity.this,BookingActivity.class,1);
         }else if(id==3){
-            new StartNewActivity<VendorsActivity>(MainActivity.this,VendorsActivity.class);
+            new StartNewActivity<VendorsActivity>(MainActivity.this,VendorsActivity.class,1);
         }else if(id==4){
             new StartNewActivity<ChangePassword>(MainActivity.this,ChangePassword.class);
         }else if(id==5){
             new StartNewActivity<TermsOfUse>(MainActivity.this,TermsOfUse.class);
+        }else if(id==6){
+            new StartNewActivity<VendorsActivity>(MainActivity.this,VendorsActivity.class,2);
         }else if(id==8){
             new StartNewActivity<PostCarsOfVendors>(MainActivity.this,PostCarsOfVendors.class);
         }else if(id==9) {
