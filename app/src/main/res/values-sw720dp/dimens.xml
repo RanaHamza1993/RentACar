@@ -371,7 +371,6 @@
     <dimen name="tv_heading3_fontsize">30sp</dimen>
     <dimen name="tv_heading4_fontsize">28sp</dimen>
     <dimen name="notification_size">18sp</dimen>
-    <dimen name="image_size"> 150dp </dimen>
 
 
 </resources>

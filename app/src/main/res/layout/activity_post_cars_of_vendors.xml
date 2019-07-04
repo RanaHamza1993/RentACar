@@ -157,6 +157,58 @@
                         />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/text_padding_how_it"
+                            android:layout_marginTop="@dimen/text_padding_how_it"
+                            android:layout_marginRight="@dimen/text_padding_how_it"
+                            android:padding="@dimen/text_padding_how_it"
+                            app:hintTextAppearance="@style/InputTextLayout"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintVertical_bias="0.0">
+
+                        <EditText
+                                style="@style/CustomTextAppearance"
+                                android:id="@+id/driver_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:hint="Driver"
+                                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ,./"
+                                android:singleLine="true"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/gray"
+                        />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/text_padding_how_it"
+                            android:layout_marginTop="@dimen/text_padding_how_it"
+                            android:layout_marginRight="@dimen/text_padding_how_it"
+                            android:padding="@dimen/text_padding_how_it"
+                            app:hintTextAppearance="@style/InputTextLayout"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintVertical_bias="0.0">
+
+                        <EditText
+                                style="@style/CustomTextAppearance"
+                                android:id="@+id/driver_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:hint="Driver Number"
+                                android:digits="0123456789"
+                                android:singleLine="true"
+                                android:inputType="number"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/gray"
+                        />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/input_headline"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

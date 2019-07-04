@@ -49,6 +49,8 @@ public class PostCarsOfVendors extends BaseActivity {
     EditText vendorName;
     EditText carAddress;
     EditText hourlyPrice;
+    EditText driverName;
+    EditText driverNumber;
     TextView addData;
     Spinner vendorsSpinner;
     String vendName="";
@@ -78,6 +80,8 @@ public class PostCarsOfVendors extends BaseActivity {
         carImage = findViewById(R.id.car_image);
         carAddress = findViewById(R.id.location);
         hourlyPrice = findViewById(R.id.hourly_rate);
+        driverName = findViewById(R.id.driver_name);
+        driverNumber = findViewById(R.id.driver_number);
         addData = findViewById(R.id.add_car);
         vendorsSpinner = findViewById(R.id.vendorsSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
@@ -210,6 +214,14 @@ public class PostCarsOfVendors extends BaseActivity {
             showErrorMessage("Invalid address");
             return;
         }
+        if (driverName.getText().toString().isEmpty()) {
+            showErrorMessage("Enter driver name");
+            return;
+        }
+        if (driverNumber.getText().toString().isEmpty()) {
+            showErrorMessage("Enter driver number");
+            return;
+        }
         if(hourlyPrice.getText().toString().isEmpty()){
             showErrorMessage("Invalid hourly price");
         }
@@ -287,6 +299,9 @@ public class PostCarsOfVendors extends BaseActivity {
             map.put("vendor_name", vendName);
             map.put("car_address", carAddress.getText().toString());
             map.put("hourly_rate", hourlyPrice.getText().toString());
+            map.put("driver_name", driverName.getText().toString());
+            map.put("driver_number", driverNumber.getText().toString());
+            map.put("discount", "0");
             map.put("isBooked", false);
             vendorsReference.child(key).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

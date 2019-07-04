@@ -371,6 +371,5 @@
     <dimen name="scmarginleft">13dp</dimen>
     <dimen name="insCityText">15sp</dimen>
     <dimen name="notification_size">15sp</dimen>
-    <dimen name="image_size"> 130dp </dimen>
 
 </resources>

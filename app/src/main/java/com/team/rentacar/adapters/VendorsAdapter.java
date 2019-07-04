@@ -1,6 +1,7 @@
 package com.team.rentacar.adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,7 +93,9 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
         TextView vendorAddress;
         TextView hourlyPrice;
         TextView rentIt;
-
+        TextView driverName;
+        TextView driverNumber;
+        TextView discount;
         public VendorsHolder(@NonNull View itemView) {
             super(itemView);
             vendorImage = itemView.findViewById(R.id.vendor_image);
@@ -102,6 +105,9 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
             vendorAddress = itemView.findViewById(R.id.vendor_address);
             hourlyPrice = itemView.findViewById(R.id.hourly_rate);
             rentIt = itemView.findViewById(R.id.rent_car);
+            driverName = itemView.findViewById(R.id.driver_name);
+            driverNumber = itemView.findViewById(R.id.number);
+            discount = itemView.findViewById(R.id.disc_price);
 
 
         }
@@ -111,11 +117,25 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
 
                 vendorImage.setImageResource(drawables[position]);
                 vendorName.setText(arrayList.get(position).getName());
+
+
                 itemView.setOnClickListener(v -> {
                     listener.navigateToOtherActivities(arrayList.get(position).getId(),arrayList.get(position).getName());
                 });
             } else if (modelFlag == 2) {
+                driverName.setText(vendorsDetailArrayList.get(position).getDriverName());
+                driverNumber.setText(vendorsDetailArrayList.get(position).getDriverNumber());
                 String name=vendorsDetailArrayList.get(position).getImage();
+                if(vendorsDetailArrayList.get(position).getDiscount()==0){
+                    discount.setVisibility(View.GONE);
+                    hourlyPrice.setText(vendorsDetailArrayList.get(position).getHourlyPrice()+" Rs");
+                }else{
+                    discount.setVisibility(View.VISIBLE);
+                    int price=Integer.parseInt(vendorsDetailArrayList.get(position).getHourlyPrice())-vendorsDetailArrayList.get(position).getDiscount();
+                    hourlyPrice.setText(String.valueOf(price)+" Rs");
+                    discount.setText(vendorsDetailArrayList.get(position).getHourlyPrice());
+                    discount.setPaintFlags(discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }
                    // holder.carImage.setImageResource(vendorsDetailArrayList.get(position).getImage());
                 if (name!=null&&name.equals("default_profile"))
                     Glide.with(context).load(R.drawable.cplaceholder).placeholder(R.drawable.cplaceholder).into(carImage);
@@ -126,12 +146,12 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
                     carName.setText(vendorsDetailArrayList.get(position).getCarName());
                     vendorName.setText(vendorsDetailArrayList.get(position).getVendorName());
                     vendorAddress.setText(vendorsDetailArrayList.get(position).getVendorAddress());
-                    hourlyPrice.setText(vendorsDetailArrayList.get(position).getHourlyPrice());
-                    if(vendorsDetailArrayList.get(position).isBooked()==true)
+                   // hourlyPrice.setText(vendorsDetailArrayList.get(position).getHourlyPrice());
+                    if(vendorsDetailArrayList.get(position).isBooked())
                         rentIt.setText("Already booked");
                     else
                     rentIt.setOnClickListener(v->{
-                        if(vendorsDetailArrayList.get(position).isBooked()==false)
+                        if(!vendorsDetailArrayList.get(position).isBooked())
                         rentListener.rentIt(vendorsDetailArrayList.get(position).getId());
                     });
 

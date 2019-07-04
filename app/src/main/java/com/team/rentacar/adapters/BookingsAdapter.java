@@ -1,6 +1,7 @@
 package com.team.rentacar.adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,9 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
         TextView hourlyPrice;
         TextView rentIt;
         TextView sendCar;
+        TextView driverName;
+        TextView driverNumber;
+        TextView discount;
         public BookingsHolder(@NonNull View itemView) {
             super(itemView);
             vendorName = itemView.findViewById(R.id.vendor_name);
@@ -70,6 +74,9 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             hourlyPrice = itemView.findViewById(R.id.hourly_rate);
             rentIt = itemView.findViewById(R.id.rent_car);
             sendCar = itemView.findViewById(R.id.send_car);
+            driverName = itemView.findViewById(R.id.driver_name);
+            driverNumber = itemView.findViewById(R.id.number);
+            discount = itemView.findViewById(R.id.disc_price);
         }
         void setData(int position){
             String name=bookingList.get(position).getImage();
@@ -83,7 +90,22 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             carName.setText(bookingList.get(position).getCarName());
             vendorName.setText(bookingList.get(position).getVendorName());
             vendorAddress.setText(bookingList.get(position).getVendorAddress());
+            discount.setVisibility(View.GONE);
+            driverName.setText(bookingList.get(position).getDriverName());
+            driverNumber.setText(bookingList.get(position).getDriverNumber());
+//            if(bookingList.get(position).getDiscount()==0){
+//                discount.setVisibility(View.GONE);
+//                hourlyPrice.setText(bookingList.get(position).getHourlyPrice()+" Rs");
+//            }else{
+//                discount.setVisibility(View.VISIBLE);
+//                int price=Integer.parseInt(bookingList.get(position).getHourlyPrice())-bookingList.get(position).getDiscount();
+//                hourlyPrice.setText(String.valueOf(price)+" Rs");
+//                discount.setText(bookingList.get(position).getHourlyPrice());
+//                discount.setPaintFlags(discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//            }
+            //
             if(flag==1) {
+
                 hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
                 sendCar.setVisibility(View.GONE);
                 rentIt.setVisibility(View.GONE);
@@ -92,6 +114,15 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             else {
                 hourlyPrice.setText("Booked by: " + bookingList.get(position).getBookedBy());
                 rentIt.setText("Cancel");
+//                if(bookingList.get(position).getDiscount()==0){
+//                    discount.setVisibility(View.GONE);
+//                    hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
+//                }else{
+//                    discount.setVisibility(View.VISIBLE);
+//                    hourlyPrice.setText(Integer.parseInt(bookingList.get(position).getHourlyPrice())-bookingList.get(position).getDiscount());
+//                    hourlyPrice.setText(Integer.parseInt(bookingList.get(position).getHourlyPrice()));
+//                    discount.setPaintFlags(discount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//                }
                 rentIt.setOnClickListener(v->{
                     if(bookingsListener!=null) {
                         bookingsListener.cancel(bookingList.get(position).getId(), bookingList.get(position).getVendorName(),
@@ -103,6 +134,9 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
                         notifyDataSetChanged();
                     }
                 });
+
+//                driverName.setText(bookingList.get(position).getDriverName());
+//                driverNumber.setText(bookingList.get(position).getDriverNumber());
                 sendCar.setVisibility(View.VISIBLE);
                 sendCar.setOnClickListener(v->{
                     new StartNewActivity<NavigationActivity>(context,NavigationActivity.class);

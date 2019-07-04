@@ -44,6 +44,7 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
     ArrayList<VendorsDetailModel> arrayList = new ArrayList<>();
     String[] days = new String[]{"1 Day", "2 Days", "3 Days"};
     private int rentValue=0;
+    private String discount="0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,11 +103,14 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                         String carAddress = dataSnapshot.child(o.toString()).child("car_address").getValue(String.class);
                         String carImage = dataSnapshot.child(o.toString()).child("car_thumb_image").getValue(String.class);
                         String hourlyRate = dataSnapshot.child(o.toString()).child("hourly_rate").getValue(String.class);
+                        String driverName = dataSnapshot.child(o.toString()).child("driver_name").getValue(String.class);
+                        String driverNumber = dataSnapshot.child(o.toString()).child("driver_number").getValue(String.class);
+                        discount = dataSnapshot.child(o.toString()).child("discount").getValue(String.class);
                         String vendorName = dataSnapshot.child(o.toString()).child("vendor_name").getValue(String.class);
                         boolean isBooked = dataSnapshot.child(o.toString()).child("isBooked").getValue(Boolean.class);
 
 
-                        arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,isBooked,""));
+                        arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,"",isBooked,"",driverName,driverNumber,Integer.parseInt(discount)));
                //         vendorsAdapter.notifyDataSetChanged();
 
                     }
@@ -172,11 +176,13 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String username = dataSnapshot.child("user_name").getValue(String.class);
                     String userCnic = dataSnapshot.child("user_cnic").getValue(String.class);
+                    String userNumber = dataSnapshot.child("user_phone").getValue(String.class);
                     Map<String,Object> map=new HashMap<String,Object>();
                     map.put("Booked",carId);
                     map.put("rent_days",String.valueOf(rentDays));
-                    map.put("rent_price",String.valueOf(rentValue*rentDays));
+                    map.put("rent_price",String.valueOf(rentValue*rentDays-Integer.parseInt(discount)));
                     map.put("booked_by",username);
+                    map.put("user_number",userNumber);
                     map.put("user_cnic",userCnic);
                     map.put("vendor_name",vendorName);
                     map.put("uid",FirebaseAuth.getInstance().getUid());

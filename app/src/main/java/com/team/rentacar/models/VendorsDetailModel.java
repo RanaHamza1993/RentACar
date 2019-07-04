@@ -11,6 +11,9 @@ public class VendorsDetailModel {
     String bookedBy;
     boolean isBooked;
     String uid;
+    String driverName;
+    String driverNumber;
+    int discount;
 
     public String getUid() {
         return uid;
@@ -36,6 +39,31 @@ public class VendorsDetailModel {
         isBooked = booked;
     }
 
+    public String getDriverName() {
+        return driverName;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
+    }
+
+    public String getDriverNumber() {
+        return driverNumber;
+    }
+
+    public void setDriverNumber(String driverNumber) {
+        this.driverNumber = driverNumber;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+
     public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice, String bookedBy, boolean isBooked,String uid) {
         this.id = id;
         this.image = image;
@@ -46,6 +74,20 @@ public class VendorsDetailModel {
         this.bookedBy = bookedBy;
         this.isBooked = isBooked;
         this.uid=uid;
+    }
+    public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice,String bookedBy, boolean isBooked, String uid, String driverName, String driverNumber, int discount) {
+        this.id = id;
+        this.image = image;
+        this.carName = carName;
+        this.vendorName = vendorName;
+        this.vendorAddress = vendorAddress;
+        this.hourlyPrice = hourlyPrice;
+        this.isBooked = isBooked;
+        this.uid=uid;
+        this.driverName=driverName;
+        this.driverNumber=driverNumber;
+        this.discount=discount;
+        this.bookedBy=bookedBy;
     }
     public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice,  boolean isBooked,String uid) {
         this.id = id;
