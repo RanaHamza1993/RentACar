@@ -171,7 +171,7 @@ public class LoginActivity extends BaseActivity {
         if(role.equals("user"))
         editor.putString("token", deviceToken);
         else
-            editor.putString("token", "");
+            editor.putString("token", "admin");
         editor.putString("role", role);
         editor.commit();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

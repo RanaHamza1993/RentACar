@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
@@ -147,6 +148,12 @@ public class PostCarsOfVendors extends BaseActivity {
                             .compressToBitmap(thumbImagePath);
 
                 } catch (IOException e) {
+                }
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
+                    carImage.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
 
