@@ -303,6 +303,10 @@ public class PostCarsOfVendors extends BaseActivity {
             map.put("driver_number", driverNumber.getText().toString());
             map.put("discount", "0");
             map.put("isBooked", false);
+            map.put("uid", "");
+            map.put("rent_price", "0");
+            map.put("booked_by", "");
+            map.put("user_number", "");
             vendorsReference.child(key).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {

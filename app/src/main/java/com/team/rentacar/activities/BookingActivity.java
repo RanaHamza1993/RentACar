@@ -110,7 +110,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                              if (array != null)
                                  for (Object o : array) {
                                      //  vendorsDetailReference.child(o.toString())
-                                     String user=FirebaseAuth.getInstance().getUid();
+                                     String user = FirebaseAuth.getInstance().getUid();
                                      HashMap map = (HashMap) dataSnapshot.child(o.toString()).child(user).getValue();
                                      Set setcarKeys = null;
                                      Object[] arrayCarKeys = null;
@@ -232,24 +232,20 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                                          array = keys.toArray();
                                                      if (array != null)
                                                          for (Object obb : array) {
+//                                                             bookingReference.child(o.toString()).child(ob.toString()).child(obb.toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                                                                 @Override
+//                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//
+//
+//                                                                 }
+//
+//                                                                 @Override
+//                                                                 public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                                                                 }
+//                                                             });
 
-                                                             bookingReference.child(o.toString()).child(ob.toString()).child(obb.toString()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                 @Override
-                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                                                                     bookedBy = dataSnapshot.child("booked_by").getValue(String.class);
-                                                                     hourlyRate = dataSnapshot.child("rent_price").getValue(String.class);
-                                                                     uid = dataSnapshot.child("uid").getValue(String.class);
-                                                                     userNumber = dataSnapshot.child("user_number").getValue(String.class);
-
-
-                                                                 }
-
-                                                                 @Override
-                                                                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                                                 }
-                                                             });
                                                              vendorsDetailReference.child(o.toString()).child("vendor_cars").
                                                                      child(obb.toString()).
                                                                      addListenerForSingleValueEvent(
@@ -262,11 +258,14 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                                                                      carAddress = dataSnapshot2.child("car_address").getValue(String.class);
                                                                                      carImage = dataSnapshot2.child("car_thumb_image").getValue(String.class);
                                                                                      vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
-                                                                                      driverName = dataSnapshot2.child("driver_name").getValue(String.class);
-                                                                                      driverNumber = dataSnapshot2.child("driver_number").getValue(String.class);
-                                                                                      discount = dataSnapshot2.child("discount").getValue(String.class);
+                                                                                     driverName = dataSnapshot2.child("driver_name").getValue(String.class);
+                                                                                     driverNumber = dataSnapshot2.child("driver_number").getValue(String.class);
+                                                                                     discount = dataSnapshot2.child("discount").getValue(String.class);
+                                                                                     bookedBy = dataSnapshot2.child("booked_by").getValue(String.class);
+                                                                                     hourlyRate = dataSnapshot2.child("rent_price").getValue(String.class);
+                                                                                     uid = dataSnapshot2.child("uid").getValue(String.class);
+                                                                                     userNumber = dataSnapshot2.child("user_number").getValue(String.class);
                                                                                      bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy, true, uid, driverName, userNumber, Integer.parseInt(discount)));
-
                                                                                      bookingAdapter.setIBookingListener(BookingActivity.this);
                                                                                      bookingAdapter.notifyDataSetChanged();
 
@@ -338,7 +337,10 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("isBooked", false);
-
+        map.put("rent_price", "0");
+        map.put("booked_by", "");
+        map.put("user_number", "");
+        map.put("uid", "");
         vendorsDetailReference.child(vendorName).child("vendor_cars").child(id).updateChildren(map);
         bookingReference.child(vendorName).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

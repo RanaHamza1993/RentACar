@@ -188,6 +188,11 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                     map.put("uid",FirebaseAuth.getInstance().getUid());
                     Map<String,Object> vendorDetail=new HashMap<String,Object>();
                     vendorDetail.put("isBooked",true);
+                    vendorDetail.put("rent_price",String.valueOf(rentValue*rentDays-Integer.parseInt(discount)));
+                    vendorDetail.put("booked_by",username);
+                    vendorDetail.put("user_number",userNumber);
+                    vendorDetail.put("uid",FirebaseAuth.getInstance().getUid());
+
                     vendorsDetailReference.child(carId).updateChildren(vendorDetail);
                     bookingReference.child(FirebaseAuth.getInstance().getUid()).child(carId).updateChildren(map).
                             addOnSuccessListener(new OnSuccessListener<Void>() {
