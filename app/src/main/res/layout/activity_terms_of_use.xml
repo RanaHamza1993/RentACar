@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".activities.TermsOfUse">
 
     <include android:id="@+id/terms_toolbar"
@@ -12,4 +13,353 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"></include>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/terms_toolbar">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/terms_toolbar">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:text="Terms of Use"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Obligatory documents for your pick-up"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/obligatory"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"
+                       />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Young and senior driver fee"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"
+                        android:visibility="visible"
+                />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/young_and_senior"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Additional driver fee"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/driver_fee"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Fuel policies and surcharges"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/fuel_policies"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="DAY"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"
+                        android:visibility="visible"
+                />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/day_mean"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="The Vehicle"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/the_vehicle"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="The Rental Period"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="@string/the_rental"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="The Official Rates"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/official_rates"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Agreement"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/agreement"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"
+                        android:visibility="visible"/>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Reference"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/reference_to_singular"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Warranties by You"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/warranties"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"
+                        android:visibility="visible"/>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Payments"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/payments"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"
+                        android:visibility="visible"/>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Termination"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/termination"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"
+                        android:visibility="visible"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Responsibility After Loss Or Damage To Vechicle"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/app_normal_text"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/responsibility"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/app_small_text"
+                        android:visibility="visible"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+</LinearLayout>

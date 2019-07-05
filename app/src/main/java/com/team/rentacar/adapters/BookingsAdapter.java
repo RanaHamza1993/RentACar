@@ -113,7 +113,15 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
 
                 hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
                 sendCar.setVisibility(View.GONE);
-                rentIt.setVisibility(View.GONE);
+                rentIt.setVisibility(View.VISIBLE);
+                rentIt.setText("Cancel");
+                rentIt.setOnClickListener(v->{
+                if(bookingsListener!=null)
+                    bookingsListener.cancel(bookingList.get(position).getId(), bookingList.get(position).getVendorName(),bookingList.get(position).getUid(),position);
+                    bookingList.remove(position);
+                    notifyDataSetChanged();
+
+                });
 
             }
             else {

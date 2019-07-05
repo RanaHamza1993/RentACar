@@ -2,6 +2,7 @@ package com.team.rentacar.activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,9 +37,13 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
     String carImage = "";
     String hourlyRate = "";
     String vendorName = "";
+    String driverName = "";
+    String driverNumber = "";
+    String discount = "";
     String uid = "";
     String bookedBy = "";
     private String role;
+    private String userNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +92,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
     }
 
     private void populateUserBookingArray() {
-        bookingReference.addValueEventListener
+        bookingReference.addListenerForSingleValueEvent
                 (new ValueEventListener() {
 
                      @Override
@@ -105,8 +110,8 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                              if (array != null)
                                  for (Object o : array) {
                                      //  vendorsDetailReference.child(o.toString())
-
-                                     HashMap map = (HashMap) dataSnapshot.child(o.toString()).child(FirebaseAuth.getInstance().getUid()).getValue();
+                                     String user=FirebaseAuth.getInstance().getUid();
+                                     HashMap map = (HashMap) dataSnapshot.child(o.toString()).child(user).getValue();
                                      Set setcarKeys = null;
                                      Object[] arrayCarKeys = null;
                                      if (map != null) {
@@ -117,7 +122,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                          for (Object ob : arrayCarKeys) {
                                              vendorsDetailReference.child(o.toString()).child("vendor_cars").
                                                      child(ob.toString()).
-                                                     addValueEventListener
+                                                     addListenerForSingleValueEvent
                                                              (new ValueEventListener() {
                                                                   @Override
                                                                   public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
@@ -128,7 +133,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                                                       String carImage = dataSnapshot2.child("car_thumb_image").getValue(String.class);
                                                                       String driverName = dataSnapshot2.child("driver_name").getValue(String.class);
                                                                       String driverNumber = dataSnapshot2.child("driver_number").getValue(String.class);
-                                                                      String discount = dataSnapshot2.child("discount").getValue(String.class);
+                                                                      discount = dataSnapshot2.child("discount").getValue(String.class);
 
                                                                       try {
                                                                           hourlyRate = dataSnapshot.child(o.toString()).child(FirebaseAuth.getInstance().getUid()).child(ob.toString()).child("rent_price").getValue(String.class);
@@ -136,7 +141,8 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
 
                                                                       }
                                                                       String vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
-                                                                      bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, "", true, "", driverName, driverNumber, Integer.parseInt(discount)));
+                                                                      bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, "", true, FirebaseAuth.getInstance().getUid(), driverName, driverNumber, Integer.parseInt(discount)));
+                                                                      bookingAdapter.setIBookingListener(BookingActivity.this);
                                                                       bookingAdapter.notifyDataSetChanged();
 
                                                                   }
@@ -212,7 +218,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                      if (arrayCarKeys != null)
                                          for (Object ob : arrayCarKeys) {
 
-                                             bookingReference.child(o.toString()).child(ob.toString()).addValueEventListener(new ValueEventListener() {
+                                             bookingReference.child(o.toString()).child(ob.toString()).addListenerForSingleValueEvent(new ValueEventListener() {
                                                  @Override
                                                  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                      bookingList.clear();
@@ -227,13 +233,14 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                                      if (array != null)
                                                          for (Object obb : array) {
 
-                                                             bookingReference.child(o.toString()).child(ob.toString()).child(obb.toString()).addValueEventListener(new ValueEventListener() {
+                                                             bookingReference.child(o.toString()).child(ob.toString()).child(obb.toString()).addListenerForSingleValueEvent(new ValueEventListener() {
                                                                  @Override
                                                                  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                                                                      bookedBy = dataSnapshot.child("booked_by").getValue(String.class);
                                                                      hourlyRate = dataSnapshot.child("rent_price").getValue(String.class);
                                                                      uid = dataSnapshot.child("uid").getValue(String.class);
+                                                                     userNumber = dataSnapshot.child("user_number").getValue(String.class);
 
 
                                                                  }
@@ -255,14 +262,14 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                                                                      carAddress = dataSnapshot2.child("car_address").getValue(String.class);
                                                                                      carImage = dataSnapshot2.child("car_thumb_image").getValue(String.class);
                                                                                      vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
-                                                                                     String driverName = dataSnapshot2.child("driver_name").getValue(String.class);
-                                                                                     String driverNumber = dataSnapshot2.child("driver_number").getValue(String.class);
-                                                                                     String discount = dataSnapshot2.child("discount").getValue(String.class);
-
-                                                                                     bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy, true, uid, driverName, driverNumber, Integer.parseInt(discount)));
+                                                                                      driverName = dataSnapshot2.child("driver_name").getValue(String.class);
+                                                                                      driverNumber = dataSnapshot2.child("driver_number").getValue(String.class);
+                                                                                      discount = dataSnapshot2.child("discount").getValue(String.class);
+                                                                                     bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy, true, uid, driverName, userNumber, Integer.parseInt(discount)));
 
                                                                                      bookingAdapter.setIBookingListener(BookingActivity.this);
                                                                                      bookingAdapter.notifyDataSetChanged();
+
                                                                                  }
 
                                                                                  @Override
@@ -337,8 +344,8 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataSnapshot.child(id).getRef().removeValue();
-                bookingList.clear();
-                //  bookingList.remove(position);
+                //bookingList.clear();
+                //bookingList.remove(position);
                 bookingAdapter.notifyDataSetChanged();
             }
 

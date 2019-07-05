@@ -66,7 +66,49 @@
     <string name="download_speed_mb">%1$s MB/s</string>
 
 
-    <!--Privay Policy-->
+    <!--Terms of use-->
+    <!--Obligatory documents for your pick-up-->
+    <string name="obligatory">With no exceptions, you must have these documents with you when arriving at your car hire agency to pick up your car:
+        \n&#8226; ID card
+        \n&#8226; Driving license
+       \n&#8226;  Credit card
+    </string>
+    <!--Young and senior driver fee-->
+    <string name="young_and_senior">No matter how skilled, if you are a very young or older driver, rental agencies may see you as a possible liability to their fleet. That’s why you can expect a daily young driver’s fee if you’re younger than 25. To avoid extra charges at the counter, please be sure that you enter your exact age during your booking process.</string>
+    <!--Additional driver fee-->
+    <string name="driver_fee">If there is a chance, usually there are two or more people that drive a hired car. However, remember that for every additional driver you have to pay additional driver fee. (First additional driver is sometimes included, but rarely. Check supplier’s terms for specific instructions.) Also, all drivers must present essential documents at the pick-up.</string>
+    <!--Fuel policies and surcharges-->
+    <string name="fuel_policies">With most fuel policies, you’ll have to fill your tank before you return your car to the car hire agency. (If you’re not sure about the fuel policy you’ve chosen, please check your voucher for more information.) Mind that filling it by yourself is usually cheaper than asking your car hire agency to fill it up instead.</string>
+    <string name="day_mean">DAY means a period of 24 hours (or any part thereof) calculated from the time the vehicle is received by you.</string>
+    <string name="the_vehicle">The vehicle means the VEHICLE/s identified in this AGREEMENT or any other replacement vehicle provided to YOU by US (including the VEHICLE documents, keys, tyres, tools and accessories supplied with the VEHICLE)</string>
+    <string name="the_rental">The Retan Period means the period between the date when the vehicle is taken out by YOU and the termination date and time as specified on the AGREEMENT or, if such period is extended, the time and date entered on OUR records as being the date and time when the VEHICLE is returned to us.</string>
+    <string name="official_rates">The official rates means OUR rates charged from time to time and/or in terms of the official rates published and amended from time to time, applicable to the VEHICLE rented in terms of this AGREEMENT, and which are available at any of OUR offices.</string>
+    <string name="agreement">Agreement means the rental agreement and these terms and conditions.</string>
+    <string name="reference_to_singular">References to the singular will include the plural, the male gender will include the female gender, and references to persons will include natural and juristic persons.</string>
+    <string name="warranties">\n1. All information given by YOU to US is true and correct.
+        \n2. The DRIVER holds a valid unendorsed DRIVER\'s license for the VEHICLE.
+        \n3. YOU will not drive the VEHICLE under the influence of alcohol or any other central nervous system stimulant.
+        \n4. The DRIVER is not physically prevented from operating the VEHICLE safely;
+        \n5. No person other than the DRIVER will drive the VEHICLE.
+        \n6. The DRIVER will lock the VEHICLE and activate any burglar alarm or protection system installed in the VEHICLE when same is not in use and ensures that the keys of the VEHICLE are properly controlled.
+        \n7. the VEHICLE will not be used or driven for the conveyance of persons or property for reward, in contravention of or in breach of any law, in any race, speed test or contest, on roads not properly constructed, or for towing unless supplied with a tow bar.
+        \n8. The VEHICLE will not be used or driven in any way which would constitute a breach of any of the provisions of this AGREEMENT.
+        \n9. YOU and the DRIVER will not take the VEHICLE into any area or on any road where there is a risk that the VEHICLE may be damaged, stolen or lost through civil disturbance, riot or any act of political unrest.
+    </string>
+
+    <string name="payments">YOU will pay all amounts payable by YOU under this AGREEMENT to US, on demand. If any payment is not made on its due date, then WE may, without prejudice to any of OUR rights, charge interest on the amount due at the maximum rate permissible by law.</string>
+    <string name="termination">13.1 WE will be entitled to terminate this AGREEMENT if YOU and/or the DRIVER commit any breach of this AGREEMENT. WE will then be entitled to the immediate return of the VEHICLE, and furthermore any amount then and there owing by YOU to US will become immediately due and payable.
+        \n13.2 Both YOUR and OUR rights and obligations under this AGREEMENT will continue to be in full force and effect until such time as the VEHICLE has been returned to US in terms of this AGREEMENT and YOU have complied with all YOUR obligations in terms hereof.
+    </string>
+    <string name="responsibility"> If the VEHICLE is involved in any accident or collision, or is lost or stolen, or is involved in any incident, which could prejudice OUR rights, the RENTER and/or DRIVER will take all such steps to safeguard OUR interests, including, but not limited to the following where appropriate:
+        \n1 Obtain the names and addresses of everyone involved and of possible witnesses, and details of other vehicles involved.
+        \n2 Not, without our prior written consent, admit any responsibility or liability or release any party from any liability or potential liability, nor settle any claim or potential claim against or by any party, nor accept any disclaimer of liability.
+        \n3 Notify the police and US as soon as possible and in any event within 24 hours of the incident.
+        \n4 Within 48 hours of the incident complete and furnish to US OUR fully completed standard claim form.
+        \n5 Within 48 hours of the incident submit to US a copy of the DRIVER\'s license.
+        \n6 Not abandon the VEHICLE and make adequate provision for its safety and security; and
+        \n7 Cooperate with US in any investigation, the lodging or instituting of any claim or action and the defense of any prosecution, claim or action relating to the above.
+    </string>
 
 
 </resources>
