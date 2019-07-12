@@ -26,6 +26,7 @@ import com.team.rentacar.models.VendorsDetailModel;
 import com.team.rentacar.models.VendorsModel;
 import es.dmoral.toasty.Toasty;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -50,7 +51,8 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendors_detail);
-        ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
+       // ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
+        ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
         toolbar = findViewById(R.id.vendors_detail_toolbar);
         vendorName = getIntent().getStringExtra("vendor");
         vendorsDetailRecycler = findViewById(R.id.vendors_detail_recycler);
@@ -110,10 +112,8 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                         String vendorName = dataSnapshot.child(o.toString()).child("vendor_name").getValue(String.class);
                         boolean isBooked = dataSnapshot.child(o.toString()).child("isBooked").getValue(Boolean.class);
                         String date = dataSnapshot.child(o.toString()).child("booked_date").getValue(String.class);
-                        String timeStamp = dataSnapshot.child(o.toString()).child("timestamp").getValue(String.class);
 
-
-                        arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,"",isBooked,"",driverName,driverNumber,Integer.parseInt(discount)));
+                        arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,"",isBooked,"",driverName,driverNumber,Integer.parseInt(discount),date));
                //         vendorsAdapter.notifyDataSetChanged();
 
                     }

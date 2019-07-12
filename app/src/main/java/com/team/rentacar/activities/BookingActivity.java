@@ -141,7 +141,8 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
 
                                                                       }
                                                                       String vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
-                                                                      bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, "", true, FirebaseAuth.getInstance().getUid(), driverName, driverNumber, Integer.parseInt(discount)));
+                                                                      String date = dataSnapshot2.child("booked_date").getValue(String.class);
+                                                                      bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, "", true, FirebaseAuth.getInstance().getUid(), driverName, driverNumber, Integer.parseInt(discount),date));
                                                                       bookingAdapter.setIBookingListener(BookingActivity.this);
                                                                       bookingAdapter.notifyDataSetChanged();
 
@@ -265,7 +266,8 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                                                                      hourlyRate = dataSnapshot2.child("rent_price").getValue(String.class);
                                                                                      uid = dataSnapshot2.child("uid").getValue(String.class);
                                                                                      userNumber = dataSnapshot2.child("user_number").getValue(String.class);
-                                                                                     bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy, true, uid, driverName, userNumber, Integer.parseInt(discount)));
+                                                                                     String date = dataSnapshot2.child("booked_date").getValue(String.class);
+                                                                                     bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy, true, uid, driverName, userNumber, Integer.parseInt(discount),date));
                                                                                      bookingAdapter.setIBookingListener(BookingActivity.this);
                                                                                      bookingAdapter.notifyDataSetChanged();
 

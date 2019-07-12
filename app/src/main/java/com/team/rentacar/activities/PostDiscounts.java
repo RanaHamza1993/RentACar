@@ -72,7 +72,8 @@ public class PostDiscounts extends BaseActivity implements Communicator.IDiscoun
                     String discount = dataSnapshotchild.child("discount").getValue(String.class);
                     String hourlyRate=dataSnapshotchild.child("hourly_rate").getValue(String.class);
                     String vendorName=dataSnapshotchild.child("vendor_name").getValue(String.class);
-                    bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, "", true, "", driverName, driverNumber, Integer.parseInt(discount)));
+                    String date = dataSnapshot.child("booked_date").getValue(String.class);
+                    bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, "", true, "", driverName, driverNumber, Integer.parseInt(discount),date));
                     bookingAdapter.setDiscountListener(PostDiscounts.this);
                     bookingAdapter.notifyDataSetChanged();
 

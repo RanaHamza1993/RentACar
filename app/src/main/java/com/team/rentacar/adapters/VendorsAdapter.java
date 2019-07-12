@@ -96,6 +96,7 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
         TextView driverName;
         TextView driverNumber;
         TextView discount;
+        TextView bookingDate;
         public VendorsHolder(@NonNull View itemView) {
             super(itemView);
             vendorImage = itemView.findViewById(R.id.vendor_image);
@@ -108,11 +109,12 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
             driverName = itemView.findViewById(R.id.driver_name);
             driverNumber = itemView.findViewById(R.id.number);
             discount = itemView.findViewById(R.id.disc_price);
-
+            bookingDate = itemView.findViewById(R.id.booking_date);
 
         }
 
         public void setData( int position) {
+
             if (modelFlag == 1) {
 
                 vendorImage.setImageResource(drawables[position]);
@@ -123,6 +125,12 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
                     listener.navigateToOtherActivities(arrayList.get(position).getId(),arrayList.get(position).getName());
                 });
             } else if (modelFlag == 2) {
+                if(vendorsDetailArrayList.get(position).isBooked()){
+                    bookingDate.setVisibility(View.VISIBLE);
+                    bookingDate.setText(vendorsDetailArrayList.get(position).getBookingDate());
+                }else{
+                    bookingDate.setVisibility(View.GONE);
+                }
                 driverName.setText(vendorsDetailArrayList.get(position).getDriverName());
                 driverNumber.setText(vendorsDetailArrayList.get(position).getDriverNumber());
                 String name=vendorsDetailArrayList.get(position).getImage();
@@ -130,6 +138,12 @@ public class VendorsAdapter extends RecyclerView.Adapter<VendorsAdapter.VendorsH
                     discount.setVisibility(View.GONE);
                     hourlyPrice.setText(vendorsDetailArrayList.get(position).getHourlyPrice()+" Rs");
                 }else{
+                    if(vendorsDetailArrayList.get(position).isBooked()){
+                        bookingDate.setVisibility(View.VISIBLE);
+                        bookingDate.setText(vendorsDetailArrayList.get(position).getBookingDate());
+                    }else{
+                        bookingDate.setVisibility(View.GONE);
+                    }
                     discount.setVisibility(View.VISIBLE);
                     int price=Integer.parseInt(vendorsDetailArrayList.get(position).getHourlyPrice())-vendorsDetailArrayList.get(position).getDiscount();
                     hourlyPrice.setText(String.valueOf(price)+" Rs");
