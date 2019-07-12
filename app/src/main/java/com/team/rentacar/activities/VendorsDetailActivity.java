@@ -112,8 +112,9 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                         String vendorName = dataSnapshot.child(o.toString()).child("vendor_name").getValue(String.class);
                         boolean isBooked = dataSnapshot.child(o.toString()).child("isBooked").getValue(Boolean.class);
                         String date = dataSnapshot.child(o.toString()).child("booked_date").getValue(String.class);
+                        String days = dataSnapshot.child(o.toString()).child("rent_days").getValue(String.class);
 
-                        arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,"",isBooked,"",driverName,driverNumber,Integer.parseInt(discount),date));
+                        arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,"",isBooked,"",driverName,driverNumber,Integer.parseInt(discount),date,days));
                //         vendorsAdapter.notifyDataSetChanged();
 
                     }

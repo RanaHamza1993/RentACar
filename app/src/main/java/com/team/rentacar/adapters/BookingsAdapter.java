@@ -71,6 +71,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
         TextView driverNumber;
         TextView discount;
         TextView bookingDate;
+        TextView bookingDays;
         public BookingsHolder(@NonNull View itemView) {
             super(itemView);
             vendorName = itemView.findViewById(R.id.vendor_name);
@@ -84,13 +85,18 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             driverNumber = itemView.findViewById(R.id.number);
             discount = itemView.findViewById(R.id.disc_price);
             bookingDate = itemView.findViewById(R.id.booking_date);
+            bookingDays = itemView.findViewById(R.id.booking_days);
         }
         void setData(int position){
             if(bookingList.get(position).isBooked()){
                 bookingDate.setVisibility(View.VISIBLE);
+                bookingDays.setVisibility(View.VISIBLE);
+
                 bookingDate.setText(bookingList.get(position).getBookingDate());
+                bookingDays.setText("Booking days "+bookingList.get(position).getRentDays());
             }else{
                 bookingDate.setVisibility(View.GONE);
+                bookingDays.setVisibility(View.GONE);
             }
             String name=bookingList.get(position).getImage();
             // holder.carImage.setImageResource(bookingList.get(position).getImage());

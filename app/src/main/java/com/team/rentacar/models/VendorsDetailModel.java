@@ -1,7 +1,8 @@
 package com.team.rentacar.models;
 
 public class VendorsDetailModel {
-   // int vendorId;
+    private  String rentDays;
+    // int vendorId;
     String id;
     String image;
     String carName;
@@ -64,8 +65,15 @@ public class VendorsDetailModel {
         this.discount = discount;
     }
 
+    public String getRentDays() {
+        return rentDays;
+    }
 
-    public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice, String bookedBy, boolean isBooked,String uid) {
+    public void setRentDays(String rentDays) {
+        this.rentDays = rentDays;
+    }
+
+    public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice, String bookedBy, boolean isBooked, String uid) {
         this.id = id;
         this.image = image;
         this.carName = carName;
@@ -76,7 +84,7 @@ public class VendorsDetailModel {
         this.isBooked = isBooked;
         this.uid=uid;
     }
-    public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice,String bookedBy, boolean isBooked, String uid, String driverName, String driverNumber, int discount,String bookingDate) {
+    public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice,String bookedBy, boolean isBooked, String uid, String driverName, String driverNumber, int discount,String bookingDate,String rentDays) {
         this.id = id;
         this.image = image;
         this.carName = carName;
@@ -90,6 +98,7 @@ public class VendorsDetailModel {
         this.discount=discount;
         this.bookedBy=bookedBy;
         this.bookingDate=bookingDate;
+        this.rentDays=rentDays;
     }
     public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice,  boolean isBooked,String uid) {
         this.id = id;
