@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Switch;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,9 +35,10 @@ public class LoginActivity extends BaseActivity {
     private AppCompatEditText password;
     private TextView login;
     private TextView signUp;
-    private TextView privacyPolicy;
+   // private TextView termsTxt;
     private TextView termsOfUse;
     private TextView forgotPassword;
+    private Switch termsSwitch;
     private CheckBox adminCheck;
     private DatabaseReference adminReference;
     private DatabaseReference userReference;
@@ -49,9 +51,10 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         signUp=findViewById(R.id.b_register);
         termsOfUse=findViewById(R.id.terms_of_use);
-        privacyPolicy=findViewById(R.id.privacypolicy);
         forgotPassword=findViewById(R.id.forgot_password);
         adminCheck=findViewById(R.id.admin_chehck);
+      //  termsTxt=findViewById(R.id.terms_txt);
+        termsSwitch=findViewById(R.id.terms_switch);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,9 +87,7 @@ public class LoginActivity extends BaseActivity {
                 loginUser(em,pwd);
             }
         });
-        privacyPolicy.setOnClickListener(v->{
-            new StartNewActivity<PrivacyPolicy>(LoginActivity.this,PrivacyPolicy.class);
-        });
+
 
         termsOfUse.setOnClickListener(v->{
             new StartNewActivity<TermsOfUse>(LoginActivity.this,TermsOfUse.class);
@@ -102,8 +103,13 @@ public class LoginActivity extends BaseActivity {
             showErrorMessage("Invalid Email");
             return;
         }
-        if(pwd.isEmpty())
+        if(pwd.isEmpty()) {
             showErrorMessage("Invalid Password");
+            return;
+        }
+        if (!termsSwitch.isChecked()) {
+            showErrorMessage("Please check terms of use checkbox");
+        }
         else{
 
             showDialog("Loging into your account","Please wait while e are logging into your account");

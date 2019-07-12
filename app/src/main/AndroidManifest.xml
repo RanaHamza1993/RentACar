@@ -36,8 +36,6 @@
         </activity>
         <activity android:name=".activities.ProfileActivity">
         </activity>
-        <activity android:name=".activities.PrivacyPolicy">
-        </activity>
         <activity android:name=".activities.TermsOfUse">
         </activity>
         <activity android:name=".baseclasses.BaseActivity">

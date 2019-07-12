@@ -112,14 +112,19 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             if(flag==1) {
 
                 hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
-                sendCar.setVisibility(View.GONE);
                 rentIt.setVisibility(View.VISIBLE);
-                rentIt.setText("Cancel");
-                rentIt.setOnClickListener(v->{
-                if(bookingsListener!=null)
-                    bookingsListener.cancel(bookingList.get(position).getId(), bookingList.get(position).getVendorName(),bookingList.get(position).getUid(),position);
+                rentIt.setText("Car Location");
+                sendCar.setVisibility(View.VISIBLE);
+                sendCar.setText("Cancel");
+                sendCar.setOnClickListener(v->{
+                    if(bookingsListener!=null)
+                        bookingsListener.cancel(bookingList.get(position).getId(), bookingList.get(position).getVendorName(),bookingList.get(position).getUid(),position);
                     bookingList.remove(position);
                     notifyDataSetChanged();
+
+                });
+                rentIt.setOnClickListener(v->{
+                    new StartNewActivity<NavigationActivity>(context,NavigationActivity.class);
 
                 });
 
@@ -127,6 +132,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             else {
                 hourlyPrice.setText("Booked by: " + bookingList.get(position).getBookedBy());
                 rentIt.setText("Cancel");
+
 //                if(bookingList.get(position).getDiscount()==0){
 //                    discount.setVisibility(View.GONE);
 //                    hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
