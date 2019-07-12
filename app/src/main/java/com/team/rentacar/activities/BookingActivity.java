@@ -341,6 +341,9 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
         map.put("booked_by", "");
         map.put("user_number", "");
         map.put("uid", "");
+        map.put("booked_date", "");
+        map.put("rent_days", "");
+        map.put("timestamp","");
         vendorsDetailReference.child(vendorName).child("vendor_cars").child(id).updateChildren(map);
         bookingReference.child(vendorName).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -314,6 +314,9 @@ public class PostCarsOfVendors extends BaseActivity {
             map.put("rent_price", "0");
             map.put("booked_by", "");
             map.put("user_number", "");
+            map.put("booked_date", "");
+            map.put("rent_days", "");
+            map.put("timestamp","");
             vendorsReference.child(key).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {

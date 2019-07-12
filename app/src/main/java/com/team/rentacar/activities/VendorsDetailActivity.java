@@ -26,6 +26,7 @@ import com.team.rentacar.models.VendorsDetailModel;
 import com.team.rentacar.models.VendorsModel;
 import es.dmoral.toasty.Toasty;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class VendorsDetailActivity extends BaseActivity implements Communicator.IRent {
@@ -39,17 +40,17 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
     private DatabaseReference userReference;
     private DatabaseReference bookingReference;
     Spinner rentDaysSpinner;
-
     int rentDays = 1;
     ArrayList<VendorsDetailModel> arrayList = new ArrayList<>();
     String[] days = new String[]{"1 Day", "2 Days", "3 Days"};
     private int rentValue=0;
     private String discount="0";
-
+    SimpleDateFormat ISO_8601_FORMAT;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendors_detail);
+        ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
         toolbar = findViewById(R.id.vendors_detail_toolbar);
         vendorName = getIntent().getStringExtra("vendor");
         vendorsDetailRecycler = findViewById(R.id.vendors_detail_recycler);
@@ -108,6 +109,8 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                         discount = dataSnapshot.child(o.toString()).child("discount").getValue(String.class);
                         String vendorName = dataSnapshot.child(o.toString()).child("vendor_name").getValue(String.class);
                         boolean isBooked = dataSnapshot.child(o.toString()).child("isBooked").getValue(Boolean.class);
+                        String date = dataSnapshot.child(o.toString()).child("booked_date").getValue(String.class);
+                        String timeStamp = dataSnapshot.child(o.toString()).child("timestamp").getValue(String.class);
 
 
                         arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,"",isBooked,"",driverName,driverNumber,Integer.parseInt(discount)));
@@ -186,12 +189,17 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                     map.put("user_cnic",userCnic);
                     map.put("vendor_name",vendorName);
                     map.put("uid",FirebaseAuth.getInstance().getUid());
+                    map.put("timestamp",String.valueOf(new Date().getTime()));
+                    map.put("booked_date",ISO_8601_FORMAT.format(new Date()));
                     Map<String,Object> vendorDetail=new HashMap<String,Object>();
                     vendorDetail.put("isBooked",true);
                     vendorDetail.put("rent_price",String.valueOf(rentValue*rentDays-Integer.parseInt(discount)));
                     vendorDetail.put("booked_by",username);
                     vendorDetail.put("user_number",userNumber);
                     vendorDetail.put("uid",FirebaseAuth.getInstance().getUid());
+                    vendorDetail.put("booked_date",ISO_8601_FORMAT.format(new Date()));
+                    vendorDetail.put("timestamp",String.valueOf(new Date().getTime()));
+                    vendorDetail.put("rent_days",String.valueOf(rentDays));
 
                     vendorsDetailReference.child(carId).updateChildren(vendorDetail);
                     bookingReference.child(FirebaseAuth.getInstance().getUid()).child(carId).updateChildren(map).
