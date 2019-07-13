@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.team.rentacar.R;
 import com.team.rentacar.activities.BookingActivity;
+import com.team.rentacar.activities.CurrentLocationActivity;
 import com.team.rentacar.activities.NavigationActivity;
 import com.team.rentacar.contracts.Communicator;
 import com.team.rentacar.models.VendorsDetailModel;
@@ -127,7 +128,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
 
                 hourlyPrice.setText(bookingList.get(position).getHourlyPrice());
                 rentIt.setVisibility(View.VISIBLE);
-                rentIt.setText("Car Location");
+                rentIt.setText("Location");
                 sendCar.setVisibility(View.VISIBLE);
                 sendCar.setText("Cancel");
                 sendCar.setOnClickListener(v->{
@@ -138,7 +139,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
 
                 });
                 rentIt.setOnClickListener(v->{
-                    new StartNewActivity<NavigationActivity>(context,NavigationActivity.class);
+                    new StartNewActivity<CurrentLocationActivity>(context,CurrentLocationActivity.class);
 
                 });
 
