@@ -223,7 +223,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                              bookingReference.child(o.toString()).child(ob.toString()).addListenerForSingleValueEvent(new ValueEventListener() {
                                                  @Override
                                                  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                     bookingList.clear();
+                                                  //   bookingList.clear();
                                                      HashMap hashMap = (HashMap) dataSnapshot.getValue();
                                                      Set keys = null;
                                                      Object[] array;
@@ -269,7 +269,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                                                                      userNumber = dataSnapshot2.child("user_number").getValue(String.class);
                                                                                      String date = dataSnapshot2.child("booked_date").getValue(String.class);
                                                                                      String days = dataSnapshot2.child("rent_days").getValue(String.class);
-                                                                                     bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy, true, uid, driverName, userNumber, Integer.parseInt(discount),date,days));
+                                                                                     bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy, true, uid, driverName, userNumber, Integer.parseInt(discount.trim()),date,days));
                                                                                      bookingAdapter.setIBookingListener(BookingActivity.this);
                                                                                      bookingAdapter.notifyDataSetChanged();
 
