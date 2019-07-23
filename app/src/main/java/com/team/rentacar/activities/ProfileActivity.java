@@ -80,6 +80,8 @@ public class ProfileActivity extends BaseActivity {
             uid = mAuth.getInstance().getCurrentUser().getUid();
             userDataReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
             userDataReference.keepSynced(true);
+            thumbImagetorage = FirebaseStorage.getInstance().getReference().child("thumb_Images");
+            databasestorage = FirebaseStorage.getInstance().getReference().child("Profile_Images");
         }
         else {
             setContentView(R.layout.layout_admin_profile);
@@ -90,8 +92,8 @@ public class ProfileActivity extends BaseActivity {
             userImage = findViewById(R.id.user_profile);
             adminDataReference = FirebaseDatabase.getInstance().getReference().child("Admin");
             updateData=findViewById(R.id.update);
-            databasestorage = FirebaseStorage.getInstance().getReference().child("Profile_Images");
-            thumbImagetorage = FirebaseStorage.getInstance().getReference().child("thumb_Images");
+
+
             databasestorage = FirebaseStorage.getInstance().getReference().child("admin_Image");
             thumbImagetorage = FirebaseStorage.getInstance().getReference().child("admin_thumb_Image");
         }
