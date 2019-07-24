@@ -112,7 +112,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             carName.setText(bookingList.get(position).getCarName());
             vendorName.setText(bookingList.get(position).getVendorName());
             vendorAddress.setText(bookingList.get(position).getVendorAddress());
-            discount.setVisibility(View.GONE);
+
             driverName.setText(bookingList.get(position).getDriverName());
             driverNumber.setText(bookingList.get(position).getDriverNumber());
 //            if(bookingList.get(position).getDiscount()==0){
