@@ -143,7 +143,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                                                       String vendorName = dataSnapshot2.child("vendor_name").getValue(String.class);
                                                                       String date = dataSnapshot2.child("booked_date").getValue(String.class);
                                                                       String days = dataSnapshot2.child("rent_days").getValue(String.class);
-                                                                      bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, "", true, FirebaseAuth.getInstance().getUid(), driverName, driverNumber, Integer.parseInt(discount),date,days));
+                                                                      bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, "", true, FirebaseAuth.getInstance().getUid(), driverName, driverNumber, Integer.parseInt(discount),date,days,""));
                                                                       bookingAdapter.setIBookingListener(BookingActivity.this);
                                                                       bookingAdapter.notifyDataSetChanged();
 
@@ -269,7 +269,8 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
                                                                                      userNumber = dataSnapshot2.child("user_number").getValue(String.class);
                                                                                      String date = dataSnapshot2.child("booked_date").getValue(String.class);
                                                                                      String days = dataSnapshot2.child("rent_days").getValue(String.class);
-                                                                                     bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy, true, uid, driverName, userNumber, Integer.parseInt(discount.trim()),date,days));
+                                                                                     String userAddress = dataSnapshot2.child("user_address").getValue(String.class);
+                                                                                     bookingList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate, bookedBy, true, uid, driverName, userNumber, Integer.parseInt(discount.trim()),date,days,userAddress));
                                                                                      bookingAdapter.setIBookingListener(BookingActivity.this);
                                                                                      bookingAdapter.notifyDataSetChanged();
 
@@ -347,6 +348,7 @@ public class BookingActivity extends AppCompatActivity implements Communicator.I
         map.put("uid", "");
         map.put("booked_date", "");
         map.put("rent_days", "");
+        map.put("user_address", "");
         map.put("timestamp","");
         vendorsDetailReference.child(vendorName).child("vendor_cars").child(id).updateChildren(map);
         bookingReference.child(vendorName).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {

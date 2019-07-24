@@ -16,6 +16,7 @@ public class VendorsDetailModel {
     String driverNumber;
     int discount;
     String bookingDate;
+    String userAddress;
 
     public String getUid() {
         return uid;
@@ -84,7 +85,7 @@ public class VendorsDetailModel {
         this.isBooked = isBooked;
         this.uid=uid;
     }
-    public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice,String bookedBy, boolean isBooked, String uid, String driverName, String driverNumber, int discount,String bookingDate,String rentDays) {
+    public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice,String bookedBy, boolean isBooked, String uid, String driverName, String driverNumber, int discount,String bookingDate,String rentDays,String userAddress) {
         this.id = id;
         this.image = image;
         this.carName = carName;
@@ -99,6 +100,7 @@ public class VendorsDetailModel {
         this.bookedBy=bookedBy;
         this.bookingDate=bookingDate;
         this.rentDays=rentDays;
+        this.userAddress=userAddress;
     }
     public VendorsDetailModel(String id, String image, String carName, String vendorName, String vendorAddress, String hourlyPrice,  boolean isBooked,String uid) {
         this.id = id;
@@ -172,6 +174,14 @@ public class VendorsDetailModel {
 
     public void setHourlyPrice(String hourlyPrice) {
         this.hourlyPrice = hourlyPrice;
+    }
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
 }
 

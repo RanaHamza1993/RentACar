@@ -114,7 +114,7 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                         String date = dataSnapshot.child(o.toString()).child("booked_date").getValue(String.class);
                         String days = dataSnapshot.child(o.toString()).child("rent_days").getValue(String.class);
 
-                        arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,"",isBooked,"",driverName,driverNumber,Integer.parseInt(discount),date,days));
+                        arrayList.add(new VendorsDetailModel(id, carImage, carName, vendorName, carAddress, hourlyRate,"",isBooked,"",driverName,driverNumber,Integer.parseInt(discount),date,days,""));
                //         vendorsAdapter.notifyDataSetChanged();
 
                     }
@@ -181,6 +181,7 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                     String username = dataSnapshot.child("user_name").getValue(String.class);
                     String userCnic = dataSnapshot.child("user_cnic").getValue(String.class);
                     String userNumber = dataSnapshot.child("user_phone").getValue(String.class);
+                    String userAddress = dataSnapshot.child("user_address").getValue(String.class);
                     Map<String,Object> map=new HashMap<String,Object>();
                     map.put("Booked",carId);
                     map.put("rent_days",String.valueOf(rentDays));
@@ -201,6 +202,7 @@ public class VendorsDetailActivity extends BaseActivity implements Communicator.
                     vendorDetail.put("booked_date",ISO_8601_FORMAT.format(new Date()));
                     vendorDetail.put("timestamp",String.valueOf(new Date().getTime()));
                     vendorDetail.put("rent_days",String.valueOf(rentDays));
+                    vendorDetail.put("user_address",userAddress);
 
                     vendorsDetailReference.child(carId).updateChildren(vendorDetail);
                     bookingReference.child(FirebaseAuth.getInstance().getUid()).child(carId).updateChildren(map).

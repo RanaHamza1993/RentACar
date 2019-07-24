@@ -73,6 +73,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
         TextView discount;
         TextView bookingDate;
         TextView bookingDays;
+        TextView userAddress;
         public BookingsHolder(@NonNull View itemView) {
             super(itemView);
             vendorName = itemView.findViewById(R.id.vendor_name);
@@ -87,6 +88,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
             discount = itemView.findViewById(R.id.disc_price);
             bookingDate = itemView.findViewById(R.id.booking_date);
             bookingDays = itemView.findViewById(R.id.booking_days);
+            userAddress = itemView.findViewById(R.id.user_address);
         }
         void setData(int position){
             if(bookingList.get(position).isBooked()){
@@ -185,6 +187,8 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.Bookin
                 }
                 else {
                     sendCar.setVisibility(View.VISIBLE);
+                    userAddress.setVisibility(View.VISIBLE);
+                    userAddress.setText("User Address: "+bookingList.get(position).getUserAddress());
                     rentIt.setOnClickListener(v->{
                         if(bookingsListener!=null) {
                             bookingsListener.cancel(bookingList.get(position).getId(), bookingList.get(position).getVendorName(),
