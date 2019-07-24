@@ -47,6 +47,8 @@
        <EditText
                android:id="@+id/discount_price"
                android:layout_width="match_parent"
+               android:inputType="number"
+               android:digits="0123456789"
                android:layout_height="wrap_content"
        android:hint="Discount"/>
 
